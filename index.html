@@ -185,13 +185,16 @@ footer{border-top:0}
 }
 .src-pair{display:flex;justify-content:center;gap:2px;width:100%}
 .src-pair .camera-small{flex:1;min-width:0}
+.top-right{display:flex;align-items:center;gap:14px}
+.lang-select{appearance:none;-webkit-appearance:none;font:inherit;font-size:13px;font-weight:700;color:var(--k);text-shadow:none;background:var(--y2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23181510' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;border:2.5px solid var(--k);border-radius:99px;padding:8px 32px 8px 14px;min-height:40px;box-shadow:0 3px 0 var(--k);cursor:pointer}
+@media(max-width:690px){.lang-select{font-size:16px;min-height:42px}}
 </style>
 <script defer src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
 <!-- Single-file version: no external sketch.js required. -->
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><span class="brand-symbol">✳</span><div><strong>SNIFF WALK</strong><small>A SCENTFUL LENS</small></div></div><div class="top-note">TWO SENSES · ONE SHARED PLACE</div></header>
+<header class="topbar"><div class="brand"><span class="brand-symbol">✳</span><div><strong>SNIFF WALK</strong><small>A SCENTFUL LENS</small></div></div><div class="top-right"><div class="top-note">TWO SENSES · ONE SHARED PLACE</div><select id="langSelect" class="lang-select" aria-label="Language"><option value="en">English</option><option value="nl">Nederlands</option><option value="zh">中文</option></select></div></header>
 <section class="hero"><div><div class="eyebrow">AN INVITATION TO EXPLORE TOGETHER</div><h1>Two <em>ways of seeing.</em></h1></div><p>While your dog explores with their nose, explore with your eyes. Find the light, follow the colours, keep a moment.</p></section>
 <main class="workspace">
 <section class="camera-column" aria-label="Live camera lens"><div class="camera-heading"><div class="eyebrow">01 / LOOK &amp; CAPTURE</div><div class="camera-state"><span class="live-dot"></span><span id="cameraLabel">DEMO SCENE</span></div></div>
@@ -234,6 +237,152 @@ const H = 480;
 const $ = (id) => document.getElementById(id);
 const bound = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const lerpValue = (a, b, t) => a + (b - a) * t;
+
+// ---------- Language: English / Nederlands / 中文 ----------
+let lang='en';
+const LOCALES={en:'en-GB',nl:'nl-NL',zh:'zh-CN'};
+const TR=[
+["A SCENTFUL LENS","EEN GEURIGE LENS","一枚有气味的镜头"],
+["TWO SENSES · ONE SHARED PLACE","TWEE ZINTUIGEN · ÉÉN GEDEELDE PLEK","两种感官 · 同一个地方"],
+["AN INVITATION TO EXPLORE TOGETHER","EEN UITNODIGING OM SAMEN TE ONTDEKKEN","一起去探索的邀请"],
+["Two","Twee","两种"],["ways of seeing.","manieren van kijken.","看世界的方式。"],
+["While your dog explores with their nose, explore with your eyes. Find the light, follow the colours, keep a moment.","Terwijl je hond met zijn neus op ontdekking gaat, ontdek jij met je ogen. Zoek het licht, volg de kleuren, bewaar een moment.","狗狗用鼻子探索的时候，你就用眼睛去探索。寻找光线，追随色彩，留住一个瞬间。"],
+["01 / LOOK & CAPTURE","01 / KIJK & VANG","01 / 观看与拍摄"],
+["DEMO SCENE","DEMOSCÈNE","演示场景"],["SNIFF LENS","SNUFFELLENS","嗅探镜头"],
+["DRAG TO STIR","SLEEP OM TE ROEREN","拖动搅动"],["DOG STAYS CLEAR","HOND BLIJFT VRIJ","保护狗狗区域"],
+["MIRROR KALEIDOSCOPE","SPIEGELKALEIDOSCOOP","镜像万花筒"],["SWIRLING OIL PAINT","WERVELENDE OLIEVERF","旋转的油画"],
+["LIVE","LIVE","实时"],
+["Drag to stir · tap to position your dog","Sleep om te roeren · tik om je hond te plaatsen","拖动来搅动 · 点按来放置狗狗"],
+["CAMERA","CAMERA","相机"],["PHOTO","FOTO","照片"],["DEMO","DEMO","演示"],
+["Try Demo, upload a photo, or turn on your camera.","Probeer de demo, upload een foto of zet je camera aan.","试试演示，上传一张照片，或者打开相机。"],
+["0 moments","0 momenten","0 个瞬间"],
+["02 / YOUR LENS","02 / JOUW LENS","02 / 你的镜头"],
+["Choose how to see.","Kies hoe je kijkt.","选择观看的方式。"],
+["Point your camera, gently rotate or drag, and capture a pattern you enjoy. The dog stays unaltered in the protected area.","Richt je camera, draai of sleep voorzichtig en leg een patroon vast dat je mooi vindt. De hond blijft ongewijzigd in het beschermde gebied.","对准相机，轻轻转动或拖动，拍下你喜欢的图案。狗狗会在保护区域内保持原样。"],
+["VISUAL EFFECT","VISUEEL EFFECT","视觉效果"],
+["Kaleidoscope","Caleidoscoop","万花筒"],["Oil painting","Olieverfschilderij","油画"],
+["Ten mirrored petals turn the surrounding colours and textures into a rotating optical pattern.","Tien gespiegelde bladeren maken van de kleuren en texturen om je heen een draaiend optisch patroon.","十片镜像花瓣，把周围的颜色和质感变成旋转的光学图案。"],
+["Ten mirrored petals make a kaleidoscope from the camera.","Tien gespiegelde bladeren maken een caleidoscoop van de camera.","十片镜像花瓣，把相机画面变成万花筒。"],
+["Moving curls paint with the real colours of your surroundings.","Bewegende krullen schilderen met de echte kleuren van je omgeving.","流动的卷曲笔触，用周围真实的颜色作画。"],
+["Effect strength","Effectsterkte","效果强度"],["Clear dog area","Vrij hondengebied","狗狗保护区域"],
+["✦ Place dog","✦ Hond plaatsen","✦ 放置狗狗"],["◌ Auto dog · beta","◌ Auto-hond · bèta","◌ 自动识别狗狗 · 测试版"],
+["Tap the dog in the image to protect a soft area. Adjust its size above.","Tik op de hond in het beeld om een zacht gebied te beschermen. Pas de grootte hierboven aan.","点一下画面里的狗狗，保护一块柔和的区域。可在上方调整大小。"],
+["Tap the dog on the image to keep that area unwarped. Adjust its size above.","Tik op de hond in het beeld om dat gebied onvervormd te houden. Pas de grootte hierboven aan.","点一下画面里的狗狗，让该区域不被扭曲。可在上方调整大小。"],
+["Auto dog protection is experimental. Switch back to Place dog if its outline is wrong.","Automatische hondbescherming is experimenteel. Ga terug naar Hond plaatsen als de omtrek niet klopt.","自动保护还处于实验阶段。如果轮廓不对，请切回“放置狗狗”。"],
+["Downloading the browser dog-segmentation model. This can take a moment.","Het hondherkenningsmodel wordt gedownload. Dit kan even duren.","正在下载狗狗识别模型，可能需要一点时间。"],
+["Auto dog uses a small AI segmentation model. If the dog looks incomplete, switch to Place dog.","Auto-hond gebruikt een klein AI-segmentatiemodel. Ziet de hond er onvolledig uit, ga dan naar Hond plaatsen.","自动识别使用一个小型 AI 分割模型。如果狗狗显示不完整，请切换到“放置狗狗”。"],
+["Auto dog could not load on this device. Tap the dog to protect a soft-edged area instead.","Auto-hond kon op dit apparaat niet laden. Tik op de hond om in plaats daarvan een zacht gebied te beschermen.","此设备无法加载自动识别。请改为点一下狗狗，保护一块柔边区域。"],
+["No dog detected in this frame. Move closer or use Place dog for reliable protection.","Geen hond gezien in dit beeld. Ga dichterbij of gebruik Hond plaatsen voor betrouwbare bescherming.","这一帧里没有检测到狗狗。请靠近一点，或用“放置狗狗”来可靠地保护。"],
+["Dog outline too small. Try Place dog or bring the dog into view.","Hondomtrek te klein. Probeer Hond plaatsen of breng de hond in beeld.","狗狗轮廓太小。请试试“放置狗狗”，或让狗狗更入镜。"],
+["The dog is kept unchanged; the surroundings flow. If the outline slips, use Place dog.","De hond blijft ongewijzigd; de omgeving stroomt. Glipt de omtrek weg, gebruik dan Hond plaatsen.","狗狗保持原样，周围的一切流动起来。如果轮廓偏了，请用“放置狗狗”。"],
+["Loading…","Laden…","加载中…"],
+["Soft shasha sound","Zacht sjasjageluid","轻柔的沙沙声"],["Like beads inside a kaleidoscope","Als kralen in een caleidoscoop","像万花筒里滚动的小珠子"],
+["Phone movement","Telefoonbeweging","手机动作"],["Gently turn to make the lens rustle","Draai zachtjes om de lens te laten ritselen","轻轻转动，让镜头沙沙作响"],
+["Enable","Inschakelen","开启"],["Enabled","Ingeschakeld","已开启"],
+["You can also drag the image to stir the colour and sound.","Je kunt ook over het beeld slepen om kleur en geluid te roeren.","你也可以拖动画面来搅动色彩和声音。"],
+["PLACE (OPTIONAL)","PLEK (OPTIONEEL)","地点（可选）"],
+["e.g. Canal-side tree, Delft","bijv. Boom langs de gracht, Delft","例如：代尔夫特运河边的树"],
+["⌾ Allow location now","⌾ Locatie nu toestaan","⌾ 现在允许定位"],
+["Added automatically when you take a photo","Wordt automatisch toegevoegd als je een foto maakt","拍照时自动添加"],
+["♡ Stay aware of your dog and surroundings. Play only when safely stopped.","♡ Let op je hond en je omgeving. Speel alleen als je veilig stilstaat.","♡ 留意你的狗狗和周围环境，请在安全停下时再使用。"],
+["03 / SNIFF MAP","03 / SNUFFELKAART","03 / 嗅探地图"],["Little worlds, kept.","Kleine werelden, bewaard.","被留住的小世界。"],
+["Every saved moment becomes a place on a world your dog sniffed out.","Elk bewaard moment wordt een plek in een wereld die je hond heeft opgesnoven.","每个保存的瞬间，都会变成狗狗嗅出来的世界里的一个地点。"],
+["↓ Export memories","↓ Herinneringen exporteren","↓ 导出回忆"],["↓ Save map image","↓ Kaartafbeelding opslaan","↓ 保存地图图片"],
+["No places yet","Nog geen plekken","还没有地点"],
+["SAVED MOMENTS","BEWAARDE MOMENTEN","已保存的瞬间"],
+["No saved moments yet","Nog geen bewaarde momenten","还没有保存的瞬间"],
+["Take a photo, review it, then choose Save.","Maak een foto, bekijk hem en kies dan Opslaan.","拍一张照片，看一看，然后选择保存。"],
+["Private on this browser. The map shows where places sit relative to each other, not real-world coordinates. Use Export to back up your moments.","Privé in deze browser. De kaart toont hoe plekken ten opzichte van elkaar liggen, geen echte coördinaten. Gebruik Exporteren om je momenten te back-uppen.","仅保存在此浏览器中。地图显示的是地点之间的相对位置，不是真实坐标。请用“导出”来备份你的瞬间。"],
+["Made for the spaces between steps.","Gemaakt voor de ruimte tussen de stappen.","为脚步之间的空隙而做。"],
+["Sniff Walk · D2D design prototype","Sniff Walk · D2D-ontwerpprototype","Sniff Walk · D2D 设计原型"],
+["REVIEW YOUR MOMENT","BEKIJK JE MOMENT","查看你的瞬间"],["Keep this little world?","Deze kleine wereld bewaren?","留下这个小世界吗？"],
+["Not saved yet. Choose Save or Delete.","Nog niet bewaard. Kies Opslaan of Verwijderen.","尚未保存。请选择保存或删除。"],
+["✕ Delete photo","✕ Foto verwijderen","✕ 删除照片"],["✓ Save to Sniff Map","✓ Opslaan op de Snuffelkaart","✓ 保存到嗅探地图"],
+["Your photo is only added to the map when you press Save.","Je foto wordt pas aan de kaart toegevoegd als je op Opslaan drukt.","只有按下保存，照片才会加入地图。"],
+["YOUR SNIFF MAP","JOUW SNUFFELKAART","你的嗅探地图"],["A moment, kept.","Een moment, bewaard.","一个被留住的瞬间。"],
+["↓ Download","↓ Downloaden","↓ 下载"],["✕ Delete saved photo","✕ Bewaarde foto verwijderen","✕ 删除已保存的照片"],
+["Language","Taal","语言"],
+["Turn on camera","Camera aanzetten","打开相机"],["Upload a photo","Een foto uploaden","上传照片"],["Capture photograph","Foto maken","拍照"],["Use illustrated demo","Illustratiedemo gebruiken","使用插画演示"],
+["Live camera lens","Live cameralens","实时相机镜头"],["Live camera artwork","Live camerakunstwerk","实时相机作品"],["Lens settings","Lensinstellingen","镜头设置"],["Choose one effect","Kies één effect","选择一种效果"],
+["Saved photo memories","Bewaarde fotoherinneringen","已保存的照片回忆"],["Hand-drawn map of the places your dog led you","Handgetekende kaart van de plekken waar je hond je heen leidde","狗狗带你去过的地方的手绘地图"],
+["Close unsaved photograph","Niet-bewaarde foto sluiten","关闭未保存的照片"],["Close saved moment","Bewaard moment sluiten","关闭已保存的瞬间"],
+["Unsaved artwork","Niet-bewaard kunstwerk","未保存的作品"],["Original camera view","Originele camerabeeld","原始相机画面"],["Saved artwork","Bewaard kunstwerk","已保存的作品"],
+["LIVE CAMERA","LIVE CAMERA","实时相机"],["YOUR PHOTO","JOUW FOTO","你的照片"],["MOTION ON","BEWEGING AAN","动作已开启"],
+["Move the phone gently. Watch the world shift.","Beweeg de telefoon zachtjes. Zie de wereld verschuiven.","轻轻移动手机，看世界慢慢变化。"],
+["Live camera ready · try placing the dog in the clear area","Livecamera klaar · probeer de hond in het vrije gebied te plaatsen","实时相机已就绪 · 试着把狗狗放进保护区域"],
+["Camera unavailable — demo mode is ready. Use HTTPS and allow camera access.","Camera niet beschikbaar — demomodus staat klaar. Gebruik HTTPS en geef cameratoegang.","相机不可用——已切换到演示模式。请使用 HTTPS 并允许相机权限。"],
+["Demo mode · camera permission unavailable","Demomodus · cameratoestemming niet beschikbaar","演示模式 · 没有相机权限"],
+["Demo scene · drag the lens to stir the colours.","Demoscène · sleep over de lens om de kleuren te roeren.","演示场景 · 拖动镜头来搅动色彩。"],
+["Demo mode","Demomodus","演示模式"],
+["Delete this saved photograph from your Sniff Map?","Deze bewaarde foto van je Snuffelkaart verwijderen?","要从嗅探地图中删除这张已保存的照片吗？"],
+["Dog area repositioned","Hondengebied verplaatst","狗狗保护区域已移动"],
+["Manual dog protection enabled","Handmatige hondbescherming aan","已开启手动保护狗狗"],
+["Dog model ready · searching for your dog","Hondmodel klaar · zoeken naar je hond","狗狗识别模型已就绪 · 正在寻找狗狗"],
+["Auto dog unavailable · manual protection still works","Auto-hond niet beschikbaar · handmatige bescherming werkt nog","自动识别不可用 · 仍可手动保护"],
+["Phone movement is already enabled","Telefoonbeweging staat al aan","手机动作已开启"],
+["Gently turn the phone to stir the scene","Draai de telefoon zachtjes om het beeld te roeren","轻轻转动手机来搅动画面"],
+["Motion permission unavailable · drag the image instead","Geen toegang tot bewegingssensor · sleep in plaats daarvan over het beeld","没有动作权限 · 请改为拖动画面"],
+["Could not capture this frame","Kon dit beeld niet vastleggen","无法拍下这一帧"],
+["Unsaved photo deleted","Niet-bewaarde foto verwijderd","未保存的照片已删除"],
+["✦ Saved to your Sniff Map","✦ Opgeslagen op je Snuffelkaart","✦ 已保存到你的嗅探地图"],
+["Save failed. The photo is still in your preview.","Opslaan mislukt. De foto staat nog in je voorbeeld.","保存失败。照片仍在预览中。"],
+["Moment deleted","Moment verwijderd","瞬间已删除"],
+["Capture your first moment before exporting","Maak eerst je eerste moment voordat je exporteert","导出之前，请先拍下第一个瞬间"],
+["Your memories have been exported","Je herinneringen zijn geëxporteerd","你的回忆已导出"],
+["Location is not available","Locatie niet beschikbaar","无法使用定位"],["Locating…","Locatie zoeken…","正在定位…"],
+["Coordinates attached","Coördinaten toegevoegd","已添加坐标"],
+["Coordinates will be attached to your next capture","Coördinaten worden toegevoegd aan je volgende foto","坐标将添加到你的下一张照片"],
+["Location not added","Locatie niet toegevoegd","未添加位置"],
+["Location permission not granted — you can name the place instead","Geen toestemming voor locatie — je kunt de plek ook een naam geven","没有定位权限——你可以手动给地点起个名字"],
+["location from photo","locatie uit foto","位置来自照片"],["location added","locatie toegevoegd","已添加位置"],
+["No places yet · save a moment to start","Nog geen plekken · bewaar een moment om te beginnen","还没有地点 · 保存一个瞬间就能开始"],
+["{p} found by nose · {m}","{p} met de neus gevonden · {m}","用鼻子找到 {p} · {m}"],
+["place","plek","个地点"],["places","plekken","个地点"],["moment","moment","个瞬间"],["moments","momenten","个瞬间"],
+["sniff walk","snuffelwandeling","嗅探漫步"],["Pause","Pauze","小憩"],["An unnamed pause","Een naamloze pauze","未命名的小憩"],
+["Save a moment first — the map grows from your photos","Bewaar eerst een moment — de kaart groeit met je foto’s","先保存一个瞬间——地图会随着照片一点点长大"],
+["Map image saved","Kaartafbeelding opgeslagen","地图图片已保存"],["Could not export the map image","Kon de kaartafbeelding niet exporteren","无法导出地图图片"],
+["Photo loaded · tap your dog to keep that area clear.","Foto geladen · tik op je hond om dat gebied vrij te houden.","照片已载入 · 点一下狗狗来保护该区域。"],
+["Photo loaded · its location was found","Foto geladen · de locatie is gevonden","照片已载入 · 已找到拍摄位置"],
+["Photo loaded · no location inside, the map will place it by order","Foto geladen · geen locatie in de foto, de kaart plaatst hem op volgorde","照片已载入 · 照片里没有位置信息，地图会按顺序放置"],
+["Could not open that file — try a JPG or PNG photo","Kon dat bestand niet openen — probeer een JPG- of PNG-foto","无法打开该文件——请试试 JPG 或 PNG 照片"]
+];
+const I18N={nl:{},zh:{}};TR.forEach(r=>{I18N.nl[r[0]]=r[1];I18N.zh[r[0]]=r[2];});
+const t=k=>(I18N[lang]&&I18N[lang][k])||k;
+const tf=(k,v)=>t(k).replace(/\{(\w+)\}/g,(_,n)=>v[n]);
+const tc=n=>`${n} ${t(n===1?'moment':'moments')}`;
+const dp=name=>name==='An unnamed pause'?t(name):name; // stored value stays English; display is translated
+function setK(id,key){const el=$(id);if(!el)return;el.dataset.k=key;el.textContent=t(key);}
+function setT(id,text){const el=$(id);if(!el)return;delete el.dataset.k;el.textContent=text;}
+function applyStatic(){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+    if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+    const e=n.parentElement;
+    return(!e||e.closest('script,style,select,svg,[data-k],#toast,#trail,#mapCaption,#captureCount,#draftPlace,#previewPlace,#draftDate,#previewDate,output'))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  for(const n of nodes){
+    if(n.__en===undefined)n.__en=n.nodeValue;
+    const m=n.__en.match(/^(\s*)([\s\S]*?)(\s*)$/);n.nodeValue=m[1]+t(m[2])+m[3];
+  }
+  for(const el of document.querySelectorAll('[aria-label],[placeholder],[alt]'))for(const a of['aria-label','placeholder','alt']){
+    if(!el.hasAttribute(a))continue;const k='en'+a.replace('-','');
+    if(el.dataset[k]===undefined)el.dataset[k]=el.getAttribute(a);el.setAttribute(a,t(el.dataset[k]));
+  }
+  document.querySelectorAll('[data-k]').forEach(el=>{el.textContent=t(el.dataset.k);});
+}
+function setLang(l){
+  lang=l;try{localStorage.setItem('sniffLang',l);}catch(_){}
+  document.documentElement.lang=l==='zh'?'zh-CN':l;
+  applyStatic();
+  Promise.resolve().then(()=>refreshMemories()).catch(()=>{}); // rebuilds cards, dates, map labels
+}
+function initLang(){
+  let l=null;try{l=localStorage.getItem('sniffLang');}catch(_){}
+  if(!['en','nl','zh'].includes(l)){const n=(navigator.language||'en').toLowerCase();l=n.startsWith('nl')?'nl':n.startsWith('zh')?'zh':'en';}
+  lang=l;$('langSelect').value=l;document.documentElement.lang=l==='zh'?'zh-CN':l;
+  $('langSelect').addEventListener('change',e=>setLang(e.target.value));
+  applyStatic();
+}
+
 
 let mainCanvas;
 let rawCanvas, rawCtx, dogCanvas, dogCtx, autoMaskCanvas, autoMaskCtx;
@@ -488,14 +637,14 @@ async function startCamera() {
     await video.play();
     cameraStream = stream;
     cameraOn = true; autoMaskValid = false; photoCanvas = null; photoGeo = null;
-    $('cameraLabel').textContent = 'LIVE CAMERA';
-    $('statusText').textContent = 'Move the phone gently. Watch the world shift.';
+    setK('cameraLabel','LIVE CAMERA');
+    setK('statusText','Move the phone gently. Watch the world shift.');
     toast('Live camera ready · try placing the dog in the clear area');
   } catch (e) {
     cameraOn = false;
     console.warn('Camera unavailable:', e);
     toast('Camera unavailable — demo mode is ready. Use HTTPS and allow camera access.');
-    $('statusText').textContent = 'Demo mode · camera permission unavailable';
+    setK('statusText','Demo mode · camera permission unavailable');
   }
 }
 function stopCamera() {
@@ -506,8 +655,8 @@ function stopCamera() {
 }
 function enterDemo() {
   stopCamera(); autoMaskValid = false; photoCanvas = null; photoGeo = null;
-  $('cameraLabel').textContent = 'DEMO SCENE';
-  $('statusText').textContent = 'Demo scene · drag the lens to stir the colours.';
+  setK('cameraLabel','DEMO SCENE');
+  setK('statusText','Demo scene · drag the lens to stir the colours.');
   toast('Demo mode');
 }
 
@@ -542,7 +691,7 @@ function attachControls() {
   $('closePreview').addEventListener('click',closePreview);
   $('previewDialog').querySelector('.dialog-backdrop').addEventListener('click',closePreview);
   $('downloadMoment').addEventListener('click',()=>{if(selectedEntry)downloadDataUrl(selectedEntry.art,`sniff-walk-${selectedEntry.id}.jpg`);});
-  $('deleteMoment').addEventListener('click',()=>{if(selectedEntry&&confirm('Delete this saved photograph from your Sniff Map?'))void deleteEntry(selectedEntry.id);});
+  $('deleteMoment').addEventListener('click',()=>{if(selectedEntry&&confirm(t('Delete this saved photograph from your Sniff Map?')))void deleteEntry(selectedEntry.id);});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(pendingCapture)discardCapture();else closePreview();}});
   const host=$('canvasHost');
   host.addEventListener('pointerdown',e=>{
@@ -592,7 +741,7 @@ function setDogMode(mode) {
   $('autoDogButton').classList.toggle('active',mode==='auto');
   if (mode==='manual') {
     autoMaskValid=false;
-    $('maskHint').textContent='Tap the dog on the image to keep that area unwarped. Adjust its size above.';
+    setK('maskHint','Tap the dog on the image to keep that area unwarped. Adjust its size above.');
     toast('Manual dog protection enabled');
   }
   showGuide();
@@ -609,32 +758,32 @@ async function activateAutoDog() {
   if (aiLoading) return;
   if (aiModel) {
     setDogMode('auto');
-    $('maskHint').textContent='Auto dog protection is experimental. Switch back to Place dog if its outline is wrong.';
+    setK('maskHint','Auto dog protection is experimental. Switch back to Place dog if its outline is wrong.');
     await inferDogMask();
     return;
   }
   aiLoading=true;
   $('autoDogButton').disabled=true;
-  $('autoDogButton').textContent='Loading…';
-  $('maskHint').textContent='Downloading the browser dog-segmentation model. This can take a moment.';
+  setK('autoDogButton','Loading…');
+  setK('maskHint','Downloading the browser dog-segmentation model. This can take a moment.');
   try {
     // External optional modules: first-party model inference happens locally.
     if (!window.tf) await loadExternalScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js');
     if (!window.deeplab) await loadExternalScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab@0.2.1/dist/deeplab.min.js');
     aiModel=await window.deeplab.load({base:'pascal',quantizationBytes:1});
     setDogMode('auto');
-    $('maskHint').textContent='Auto dog uses a small AI segmentation model. If the dog looks incomplete, switch to Place dog.';
+    setK('maskHint','Auto dog uses a small AI segmentation model. If the dog looks incomplete, switch to Place dog.');
     toast('Dog model ready · searching for your dog');
     await inferDogMask();
   } catch(e) {
     console.warn('Auto mask unavailable',e);
     setDogMode('manual');
-    $('maskHint').textContent='Auto dog could not load on this device. Tap the dog to protect a soft-edged area instead.';
+    setK('maskHint','Auto dog could not load on this device. Tap the dog to protect a soft-edged area instead.');
     toast('Auto dog unavailable · manual protection still works');
   } finally {
     aiLoading=false;
     $('autoDogButton').disabled=false;
-    $('autoDogButton').textContent='◌ Auto dog · beta';
+    setK('autoDogButton','◌ Auto dog · beta');
   }
 }
 async function inferDogMask() {
@@ -646,7 +795,7 @@ async function inferDogMask() {
     const colorEntry=Object.entries(segmented.legend).find(([k])=>k.toLowerCase()==='dog');
     if (!colorEntry) {
       if(time-lastMaskTime>5) {autoMaskValid=false;showGuide();}
-      $('maskHint').textContent='No dog detected in this frame. Move closer or use Place dog for reliable protection.';
+      setK('maskHint','No dog detected in this frame. Move closer or use Place dog for reliable protection.');
       return;
     }
     const target=colorEntry[1];
@@ -663,7 +812,7 @@ async function inferDogMask() {
     }
     if(count<Math.max(16,sw*sh*.002)) {
       autoMaskValid=false;showGuide();
-      $('maskHint').textContent='Dog outline too small. Try Place dog or bring the dog into view.';
+      setK('maskHint','Dog outline too small. Try Place dog or bring the dog into view.');
       return;
     }
     tctx.putImageData(mask,0,0);
@@ -671,7 +820,7 @@ async function inferDogMask() {
     autoMaskCtx.imageSmoothingEnabled=true;
     autoMaskCtx.drawImage(temp,0,0,W,H);
     autoMaskValid=true;lastMaskTime=time;showGuide();
-    $('maskHint').textContent='The dog is kept unchanged; the surroundings flow. If the outline slips, use Place dog.';
+    setK('maskHint','The dog is kept unchanged; the surroundings flow. If the outline slips, use Place dog.');
   }catch(e){console.warn('Dog mask inference failed',e);autoMaskValid=false;showGuide();}
   finally{aiBusy=false;}
 }
@@ -687,8 +836,8 @@ async function enableMotion() {
     }
     window.addEventListener('deviceorientation',onOrientation);
     motionOn=true;
-    $('sensorLabel').textContent='MOTION ON';
-    $('motionButton').textContent='Enabled';
+    setK('sensorLabel','MOTION ON');
+    setK('motionButton','Enabled');
     await initSound();
     toast('Gently turn the phone to stir the scene');
   }catch(e){console.warn(e);toast('Motion permission unavailable · drag the image instead');}
@@ -772,7 +921,7 @@ function captureMoment() {
     lat:null,lon:null,
     art,original,flow,mask:dogMode,style:look};
   $('draftArt').src=art;$('draftOriginal').src=original;
-  $('draftPlace').textContent=pendingCapture.place;
+  $('draftPlace').textContent=dp(pendingCapture.place);
   $('draftDate').textContent=formatDate(pendingCapture.timestamp);
   $('captureDialog').hidden=false;
   $('saveCapture').focus();
@@ -841,11 +990,11 @@ async function deleteEntry(id){
 async function refreshMemories(){
   entries=(await getEntries()).sort((a,b)=>b.timestamp.localeCompare(a.timestamp));
   captureCount=entries.length;
-  $('captureCount').textContent=`${captureCount} ${captureCount===1?'moment':'moments'}`;
+  setT('captureCount',tc(captureCount));
   const trail=$('trail');trail.replaceChildren();
   if(!entries.length){
     const empty=document.createElement('div');empty.className='empty-map';
-    empty.innerHTML='<span>✳</span><strong>No saved moments yet</strong><small>Take a photo, review it, then choose Save.</small>';
+    empty.innerHTML='<span>✳</span><strong>'+t('No saved moments yet')+'</strong><small>'+t('Take a photo, review it, then choose Save.')+'</small>';
     trail.appendChild(empty);drawMap();return;
   }
   for(const e of entries){
@@ -854,7 +1003,7 @@ async function refreshMemories(){
     const art=new Image();art.src=e.art;art.alt='Captured camera artwork';
     const original=new Image();original.src=e.original;original.alt='Original scene';
     imgs.append(art,original);
-    const title=document.createElement('strong');title.textContent=e.place;
+    const title=document.createElement('strong');title.textContent=dp(e.place);
     const date=document.createElement('small');date.textContent=formatDate(e.timestamp);
     card.append(imgs,title,date);
     card.addEventListener('click',()=>openPreview(e));
@@ -862,11 +1011,11 @@ async function refreshMemories(){
   }
   drawMap();
 }
-function formatDate(iso){return new Date(iso).toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function formatDate(iso){return new Date(iso).toLocaleString(LOCALES[lang],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
 function openPreview(entry){
   selectedEntry=entry;
   $('previewArt').src=entry.art;$('previewOriginal').src=entry.original;
-  $('previewPlace').textContent=entry.place;
+  $('previewPlace').textContent=dp(entry.place);
   $('previewDate').textContent=formatDate(entry.timestamp)+(entry.lat!==null?` · ${entry.lat.toFixed(4)}, ${entry.lon.toFixed(4)}`:'');
   $('previewDialog').hidden=false;
 }
@@ -883,15 +1032,15 @@ function exportEntries(){
 }
 async function locateUser() {
   if(!navigator.geolocation){toast('Location is not available');return;}
-  $('locationLabel').textContent='Locating…';
+  setK('locationLabel','Locating…');
   navigator.geolocation.getCurrentPosition(pos=>{
     currentLocation={latitude:pos.coords.latitude,longitude:pos.coords.longitude,t:Date.now()};
-    $('locationLabel').textContent='Coordinates attached';
+    setK('locationLabel','Coordinates attached');
     toast('Coordinates will be attached to your next capture');
-  },()=>{$('locationLabel').textContent='Location not added';toast('Location permission not granted — you can name the place instead');},{enableHighAccuracy:false,timeout:9000,maximumAge:60000});
+  },()=>{setK('locationLabel','Location not added');toast('Location permission not granted — you can name the place instead');},{enableHighAccuracy:false,timeout:9000,maximumAge:60000});
 }
 function toast(message) {
-  const el=$('toast');el.textContent=message;el.classList.add('show');
+  const el=$('toast');el.textContent=t(message);el.classList.add('show');
   if(toastTimer)clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>el.classList.remove('show'),3600);
 }
@@ -995,7 +1144,7 @@ function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(
 function autoLocate(p){
   locatePromise=Promise.resolve();
   if(photoCanvas){ // an uploaded photo: use the place stored inside it, never where the user happens to be now
-    if(photoGeo){p.lat=photoGeo.latitude;p.lon=photoGeo.longitude;$('draftDate').textContent=formatDate(p.timestamp)+' · location from photo';}
+    if(photoGeo){p.lat=photoGeo.latitude;p.lon=photoGeo.longitude;$('draftDate').textContent=formatDate(p.timestamp)+' · '+t('location from photo');}
     return;
   }
   if(!navigator.geolocation)return;
@@ -1005,8 +1154,8 @@ function autoLocate(p){
     navigator.geolocation.getCurrentPosition(pos=>{
       currentLocation={latitude:pos.coords.latitude,longitude:pos.coords.longitude,t:Date.now()};
       p.lat=currentLocation.latitude;p.lon=currentLocation.longitude;
-      $('locationLabel').textContent='Coordinates attached';
-      if(pendingCapture===p)$('draftDate').textContent=formatDate(p.timestamp)+' · location added';
+      setK('locationLabel','Coordinates attached');
+      if(pendingCapture===p)$('draftDate').textContent=formatDate(p.timestamp)+' · '+t('location added');
       done();
     },()=>done(),{enableHighAccuracy:true,timeout:6000,maximumAge:30000});
   });
@@ -1034,7 +1183,7 @@ function buildPlaces(){
   }
   places.forEach((pl,i)=>{
     const named=pl.items.slice().reverse().find(e=>e.place&&e.place!=='An unnamed pause');
-    pl.name=named?named.place:'Pause '+(i+1);pl.last=pl.items[pl.items.length-1];
+    pl.name=named?named.place:t('Pause')+' '+(i+1);pl.last=pl.items[pl.items.length-1];
     pl.R=60+Math.min(pl.items.length,6)*7;
   });
   return{places,seq};
@@ -1062,7 +1211,7 @@ function drawMap(){
   let h=`<defs><pattern id="waves" width="28" height="14" patternUnits="userSpaceOnUse"><path d="M0 7Q7 0 14 7T28 7" fill="none" stroke="#fff8d8" stroke-width="2.4"/></pattern><filter id="wob" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="20"/></filter>${GLYPH_DEFS}</defs><rect width="600" height="800" fill="${LAND}"/><rect width="600" height="800" fill="url(#waves)"/><g stroke="#fff8d8" stroke-width="3" opacity=".75">${rays}</g>`;
   if(!places.length){
     h+=`<g text-anchor="middle" font-family="Georgia,serif" fill="${INK}"><circle cx="300" cy="370" r="120" fill="${LAND}" stroke="${INK}" stroke-width="4" stroke-dasharray="10 8"/><text x="300" y="365" font-size="22" font-weight="700">NO LAND YET</text><text x="300" y="396" font-size="15" font-style="italic">Your first saved moment</text><text x="300" y="416" font-size="15" font-style="italic">raises the first island.</text></g>${compass}`;
-    svg.innerHTML=h;$('mapCaption').textContent='No places yet · save a moment to start';return;
+    svg.innerHTML=h;setK('mapCaption','No places yet · save a moment to start');return;
   }
   layoutPlaces(places);
   // route segments, gently curved
@@ -1105,9 +1254,9 @@ function drawMap(){
     const label=(p.name.length>16?p.name.slice(0,15)+'…':p.name).toUpperCase()+(n>1?` ×${n}`:'');
     h+=`<g class="pin${isNew?' map-new':''}" data-id="${p.last.id}" tabindex="0" role="button" aria-label="${label.replace(/"/g,'')}">${isNew?`<circle class="map-pulse" cx="${p.px.toFixed(1)}" cy="${p.py.toFixed(1)}" r="9" fill="none" stroke="${INK}" stroke-width="2.5"/>`:''}<circle cx="${p.px.toFixed(1)}" cy="${p.py.toFixed(1)}" r="9" fill="#fff" stroke="${INK}" stroke-width="3.2"/><circle cx="${p.px.toFixed(1)}" cy="${p.py.toFixed(1)}" r="3.2" fill="${INK}"/><text x="${(p.px+(right?17:-17)).toFixed(1)}" y="${(p.py+5).toFixed(1)}" text-anchor="${right?'start':'end'}" font-family="Georgia,serif" font-weight="700" font-size="15" letter-spacing="1.3" fill="${INK}" stroke="${LAND}" stroke-width="5" paint-order="stroke" stroke-linejoin="round">${label.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text></g>`;
   });
-  h+=`<text x="584" y="784" text-anchor="end" font-family="Georgia,serif" font-style="italic" font-size="13" fill="${INK}">sniff walk · ${entries.length} ${entries.length===1?'moment':'moments'}</text>`;
+  h+=`<text x="584" y="784" text-anchor="end" font-family="Georgia,serif" font-style="italic" font-size="13" fill="${INK}">${t('sniff walk')} · ${tc(entries.length)}</text>`;
   svg.innerHTML=h;
-  $('mapCaption').textContent=`${places.length} ${places.length===1?'place':'places'} found by nose · ${entries.length} ${entries.length===1?'moment':'moments'}`;
+  setT('mapCaption',tf('{p} found by nose · {m}',{p:`${places.length} ${t(places.length===1?'place':'places')}`,m:tc(entries.length)}));
 }
 
 function downloadMap(){
@@ -1168,8 +1317,8 @@ async function loadPhotoFile(file){
     if(bmp.close)bmp.close();
     photoGeo=await readExifGps(file);
     stopCamera();photoCanvas=pc;autoMaskValid=false;
-    $('cameraLabel').textContent='YOUR PHOTO';
-    $('statusText').textContent='Photo loaded · tap your dog to keep that area clear.';
+    setK('cameraLabel','YOUR PHOTO');
+    setK('statusText','Photo loaded · tap your dog to keep that area clear.');
     toast(photoGeo?'Photo loaded · its location was found':'Photo loaded · no location inside, the map will place it by order');
   }catch(e){console.warn(e);toast('Could not open that file — try a JPG or PNG photo');}
 }
@@ -1177,5 +1326,6 @@ async function loadPhotoFile(file){
   $('uploadButton').addEventListener('click',()=>$('photoInput').click());
   $('photoInput').addEventListener('change',e=>{void loadPhotoFile(e.target.files[0]);e.target.value='';});
 })();
+initLang();
 </script>
 </body></html>
