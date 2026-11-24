@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f9d54a">
+<meta name="description" content="Sniff Walk — an invitation to notice the world while your dog explores it.">
+<title>Sniff Walk — Two Ways of Seeing</title>
+<!-- Styles are intentionally embedded. This avoids broken style.css/style-1.css filenames in p5.js Web Editor. -->
+<style>
+/* SNIFF WALK — Two Ways of Seeing | EDITOR-SAFE INLINE CSS */
+:root{color-scheme:dark;--base:#101c1e;--panel:#1b2a2b;--panel2:#233436;--ink:#f1efe7;--muted:#a8b5ae;--sage:#c3dec9;--gold:#eac8a5;--line:rgba(221,236,224,.16);--red:#efb7a2}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--base);color:var(--ink);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}button:focus-visible,input:focus-visible{outline:2px solid var(--sage);outline-offset:3px}button{transition:background-color .2s,border-color .2s,transform .18s}button:active{transform:scale(.98)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1,h2,.serif{font-family:Georgia,"Times New Roman",serif;font-weight:400}h1{font-size:clamp(32px,3.9vw,56px);line-height:1.08;letter-spacing:-.04em;margin:13px 0 14px}h1 em{color:var(--sage);font-weight:400}h2{font-size:clamp(25px,2.7vw,35px);letter-spacing:-.025em;margin:9px 0 8px}h3{font:normal 28px/1.1 Georgia,serif}.eyebrow{font-size:10px;letter-spacing:.17em;color:var(--sage);font-weight:700}.app{max-width:1170px;margin:auto;padding:0 28px}.topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:12px}.brand-symbol{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:var(--sage);color:#18302c;font-size:22px}.brand strong{display:block;font-size:13px;letter-spacing:.19em}.brand small{display:block;font-size:9px;color:#9fafab;letter-spacing:.24em;margin-top:3px}.top-note{font-size:10px;color:#95a7a3;letter-spacing:.13em}.hero{padding:28px 0 17px;display:flex;align-items:end;justify-content:space-between;gap:20px}.hero p{color:var(--muted);max-width:390px;font-size:13px;line-height:1.65;margin:0 0 3px}.workspace{display:grid;grid-template-columns:minmax(310px,1.05fr) minmax(310px,.95fr);align-items:start;gap:clamp(20px,4vw,52px);padding:18px 0 52px}.camera-column{max-width:510px;width:100%;justify-self:center}.camera-heading{display:flex;justify-content:space-between;align-items:center;margin:0 4px 12px}.camera-heading .eyebrow{letter-spacing:.12em}.camera-state{font-size:10px;color:var(--muted)}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#a9e0be;box-shadow:0 0 10px #a2d5b686;margin-right:7px}.phone{border:1px solid rgba(204,226,207,.28);border-radius:26px;background:#243434;padding:9px;box-shadow:0 22px 70px #020a0d65;overflow:hidden}.phone-top{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:10px;letter-spacing:.19em;color:#bdcebf}.phone-top span:first-child{font-size:18px;color:#e4c8ac}.canvas-host{position:relative;width:100%;aspect-ratio:3/4;border-radius:13px;overflow:hidden;background:linear-gradient(145deg,#afc5a7,#e1bc98);touch-action:none;isolation:isolate}.canvas-host canvas{display:block;width:100%!important;height:100%!important;object-fit:fill}.screen-overlay{position:absolute;left:0;right:0;z-index:3;pointer-events:none;color:#fff;text-shadow:0 1px 9px #0008;font-size:10px;letter-spacing:.1em;padding:15px;display:flex;justify-content:space-between;align-items:center}.screen-overlay.top{top:0}.screen-overlay.bottom{bottom:0;min-height:58px;background:linear-gradient(transparent,#101c1eb9);font-size:11px;letter-spacing:.01em;align-items:end}.overlay-pill{padding:5px 9px;border:1px solid #ffffffe6;border-radius:99px;background:#1c332e34}.dog-guide{position:absolute;z-index:2;pointer-events:none;border:1.5px dashed #fffef2d8;border-radius:50%;box-shadow:0 0 30px #d7fbd544}.dog-guide span{position:absolute;left:50%;bottom:-23px;transform:translateX(-50%);font-size:8px;white-space:nowrap;letter-spacing:.14em;color:#fff;text-shadow:0 1px 5px #000}.flash{position:absolute;inset:0;background:#f5ead7;opacity:0;z-index:6;pointer-events:none}.flash.go{animation:flash .5s ease-out}.camera-controls{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;justify-items:center;padding:13px 15px 11px}.camera-small{background:none;border:0;color:#dde8dd;font-size:22px;min-width:68px;display:flex;flex-direction:column;align-items:center;gap:2px}.camera-small small{font-size:9px;letter-spacing:.13em}.shutter{width:70px;height:70px;border-radius:50%;border:2px solid #e8ece2;background:none;display:grid;place-items:center}.shutter-inner{width:53px;height:53px;border-radius:50%;background:#eef2e9}.under-camera{display:flex;justify-content:space-between;gap:12px;margin:11px 2px 0;color:var(--muted);font-size:11px}.under-camera span:last-child{white-space:nowrap;color:var(--sage)}.settings{background:var(--panel);border:1px solid var(--line);border-radius:21px;padding:27px 26px}.settings h2{margin-top:7px}.settings-intro{color:#a6b7b4;font-size:12px;margin-bottom:23px;max-width:390px}.section-label{font-size:10px;font-weight:650;letter-spacing:.17em;color:#a7c6b8;margin:19px 0 10px}.style-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.look-btn{border:1px solid #506966;border-radius:12px;background:#1b292a;color:#cdd6cf;text-align:left;padding:10px 9px;min-height:79px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start}.look-btn.active{color:#162b2b;background:#cee3d4;border-color:#cee3d4}.look-btn .look-icon{font-size:19px;line-height:1}.look-btn strong{font-size:11px;font-weight:600;line-height:1.2}.style-description{min-height:30px;margin:10px 1px 15px;font-size:11px;color:#9baea5}.setting-divider{height:1px;background:var(--line);margin:21px 0}.range-label{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#e8efe8}.range-label output{color:var(--sage)}input[type=range]{width:100%;accent-color:#b7ddc7;margin:14px 0 12px;cursor:pointer}.two-buttons{display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid #58726c;background:#182627;color:#d2dfd5;border-radius:99px;padding:8px 13px;font-size:11px}.pill.active{background:#c2dbc9;border-color:#c2dbc9;color:#1b302a}.hint{margin:8px 0 0;color:#96aaa2;font-size:11px;line-height:1.5}.settings-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:14px 0}.settings-row strong{display:block;font-size:12px;font-weight:600}.settings-row small{display:block;color:#8fa69d;font-size:10px;margin-top:2px}.switch{width:39px;height:23px;position:relative;flex-shrink:0}.switch input{opacity:0;position:absolute}.slider-toggle{position:absolute;inset:0;background:#516962;border-radius:99px}.slider-toggle:after{content:"";width:17px;height:17px;position:absolute;top:3px;left:3px;background:#ecf1ea;border-radius:50%;transition:transform .2s}.switch input:checked+.slider-toggle{background:#9dbfae}.switch input:checked+.slider-toggle:after{transform:translateX(16px);background:#1a3430}.enable-btn{background:transparent;color:#c9dfd0;border:1px solid #6a8b7d;border-radius:10px;padding:7px 11px;font-size:11px}.place-input{width:100%;border-radius:11px;border:1px solid #56716c;color:#fff;background:#152324;padding:12px;margin-top:5px;outline-offset:2px;font-size:12px}.place-input::placeholder{color:#8d9f99}.place-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}.place-row button{border:0;background:none;color:var(--sage);font-size:11px;padding:4px 0}.place-row span{font-size:10px;color:#819c90}.care-note{font-size:11px;color:#9caf9f;line-height:1.5;padding-top:12px;margin-top:18px;border-top:1px solid var(--line)}.memories{padding:37px 0 65px;border-top:1px solid var(--line)}.memory-heading{display:flex;justify-content:space-between;align-items:end;gap:16px}.memory-heading p{margin:5px 0 0;font-size:12px;color:var(--muted)}.outline-btn{background:transparent;border:1px solid #668176;border-radius:99px;padding:9px 16px;color:#d5e3d6;font-size:11px;white-space:nowrap}.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:16px;min-height:235px;margin-top:23px}.empty-map{grid-column:1/-1;border:1px dashed #567069;border-radius:18px;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:8px;color:#a5b9af;padding:48px;text-align:center}.empty-map>span{font-size:30px;color:#d5e9d1}.empty-map strong{font:normal 20px Georgia,serif;color:#e7eee6}.empty-map small{font-size:11px;max-width:280px;line-height:1.6}.memory-card{background:#1c2e2f;padding:9px;border:1px solid #4b6260;border-radius:15px;color:#edf5ed;text-align:left}.memory-card:hover{border-color:#b3d0b9}.memory-images{width:100%;height:177px;border-radius:10px;overflow:hidden;position:relative;background:#314440}.memory-images img:first-child{width:100%;height:100%;object-fit:cover}.memory-images img:nth-child(2){position:absolute;right:7px;bottom:7px;width:54px;height:70px;object-fit:cover;border:2px solid #f5e8d5;border-radius:6px;box-shadow:0 2px 8px #0008}.memory-card strong{display:block;margin:10px 2px 3px;font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.memory-card small{display:block;margin:0 2px 4px;color:#9fb2a8;font-size:10px}.map-note{font-size:11px;color:#869e94;margin-top:17px}footer{border-top:1px solid var(--line);padding:24px 0 35px;display:flex;justify-content:space-between;gap:12px;color:#7e978d;font-size:11px}#toast{position:fixed;left:50%;bottom:24px;z-index:55;transform:translate(-50%,30px);opacity:0;pointer-events:none;border-radius:99px;background:#dbead9;color:#1c3130;font-size:12px;padding:12px 18px;box-shadow:0 10px 35px #0008;max-width:90vw;text-align:center;transition:.2s}#toast.show{opacity:1;transform:translate(-50%,0)}.dialog{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:18px}.dialog-backdrop{position:absolute;inset:0;background:#02090bdd;backdrop-filter:blur(8px)}.dialog-card{position:relative;border:1px solid #708d7f;border-radius:20px;background:#1d2d2f;width:min(100%,470px);padding:22px;max-height:min(94vh,920px);overflow:auto;box-shadow:0 20px 60px #0009}.dialog-card h3{margin:6px 0 8px}.dialog-caption{font-size:11px;color:#b9c7bd;margin-bottom:12px}.dialog-close{position:absolute;right:15px;top:11px;border:0;background:none;color:#e6ede9;font-size:28px;line-height:1}.preview-main{display:block;width:100%;aspect-ratio:3/3.7;max-height:50vh;object-fit:cover;border-radius:12px;background:#415751}.dialog-detail{display:flex;align-items:center;gap:12px;margin:14px 0}.dialog-detail img{width:55px;height:65px;object-fit:cover;border:2px solid #d9d1c0;border-radius:7px}.dialog-detail strong,.dialog-detail small{display:block}.dialog-detail strong{font-size:12px}.dialog-detail small{font-size:10px;color:#a8bbb0;margin-top:5px}.dialog-actions{display:flex;gap:9px;flex-wrap:wrap}.dialog-actions button{flex:1;border:1px solid #698779;border-radius:11px;background:#283f3d;color:#ecf3ed;padding:11px 13px;font-size:12px;white-space:nowrap}.dialog-actions .primary-btn{background:#cde3d3;color:#19302a;border-color:#cde3d3;font-weight:650}.dialog-actions .danger-btn{border-color:#896964;color:#f2c2b6;background:transparent}.save-notice{color:#b3c4b8;font-size:10px;margin:10px 0 0}.dialog.card[hidden]{display:none}@keyframes flash{0%{opacity:0}25%{opacity:.7}100%{opacity:0}}
+@media(max-width:850px){.app{padding:0 18px}.hero{align-items:start;display:block}.hero p{max-width:620px}.workspace{gap:18px;grid-template-columns:minmax(280px,1fr) minmax(275px,.85fr)}.settings{padding:21px 16px}}
+@media(max-width:690px){.app{padding:0 12px}.topbar{height:63px}.top-note{display:none}.hero{padding:23px 5px 10px}.hero h1{font-size:36px}.hero p{font-size:11px}.workspace{display:flex;flex-direction:column;gap:22px;padding:12px 0 35px}.camera-column{width:100%;max-width:440px}.settings{width:100%;max-width:500px;align-self:center}.camera-controls{padding:11px 10px}.camera-heading{font-size:10px}.memory-heading{align-items:start;flex-direction:column}.memories{padding-top:29px}.trail{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.memory-images{height:150px}.dialog-card{padding:18px}.dialog-card h3{font-size:26px}.dialog-actions button{min-width:100px}footer{line-height:1.5;gap:20px}}
+@media(max-width:350px){.hero h1{font-size:32px}.style-grid{gap:5px}.look-btn{padding:9px 7px}.look-btn strong{font-size:10px}.trail{grid-template-columns:1fr}.memory-images{height:195px}}
+
+.effect-intro{display:flex;align-items:center;gap:13px;border:1px solid #5c776f;border-radius:14px;padding:15px;background:#203335}.effect-mark{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:#cedecc;color:#223a32;font-size:27px;flex-shrink:0}.effect-intro strong{font-size:14px}.effect-intro p{margin:4px 0 0;font-size:11px;color:#a8bcb0}.style-grid:has(.look-btn:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* ===== MOBILE OPTIMISATION (appended; desktop layout untouched) ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,.look-btn,.switch,.canvas-host{-webkit-tap-highlight-color:transparent}
+button,input[type=range],.switch{touch-action:manipulation}
+.dialog-card{overscroll-behavior:contain}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media(max-width:690px){
+body{font-size:15px;padding-bottom:env(safe-area-inset-bottom)}
+.app{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+.topbar{height:56px}
+.brand-symbol{width:34px;height:34px;font-size:19px}
+.brand strong{font-size:12px}.brand small{font-size:10px}
+/* Camera first: compact hero so the lens and shutter sit above the fold */
+.hero{padding:14px 2px 4px}
+.hero .eyebrow,.hero p{display:none}
+.hero h1{font-size:28px;margin:0}
+.workspace{gap:20px;padding:8px 0 32px}
+.camera-column{max-width:none}
+.camera-heading{margin:0 2px 8px}
+.eyebrow{font-size:11px}
+.camera-state{font-size:11px}
+/* Drop the decorative phone frame to give the image full width */
+.phone{padding:0;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
+.phone-top{display:none}
+.canvas-host{border-radius:18px;touch-action:pan-y} /* page can still scroll when swiping vertically on the image */
+.screen-overlay{font-size:11px;padding:12px}
+.screen-overlay.bottom{font-size:12px}
+.dog-guide span{font-size:10px;bottom:-26px}
+.camera-controls{padding:14px 4px 6px}
+.camera-small{min-width:76px;min-height:60px;justify-content:center;font-size:26px;border-radius:14px}
+.camera-small small{font-size:11px}
+.shutter{width:78px;height:78px}
+.shutter-inner{width:60px;height:60px;transition:transform .15s}
+.shutter:active .shutter-inner{transform:scale(.9)}
+.under-camera{font-size:13px;margin:6px 2px 0}
+/* Settings: larger text and 44px+ touch targets */
+.settings{max-width:none;padding:22px 16px 20px;border-radius:20px}
+.settings-intro{font-size:14px;max-width:none}
+.section-label{font-size:11px;margin:22px 0 10px}
+.look-btn{min-height:88px;padding:12px 11px;border-radius:14px}
+.look-btn .look-icon{font-size:22px}
+.look-btn strong{font-size:14px}
+.style-description{font-size:13px;min-height:44px}
+.range-label{font-size:14px}
+input[type=range]{margin:12px 0 18px;height:28px}
+.pill{min-height:44px;padding:10px 14px;font-size:13px;flex:1 1 140px;text-align:center}
+.hint{font-size:12.5px}
+.settings-row{min-height:52px;margin:10px 0}
+.settings-row strong{font-size:14px}
+.settings-row small{font-size:12px}
+.switch{width:52px;height:32px}
+.slider-toggle:after{width:26px;height:26px;top:3px;left:3px}
+.switch input:checked+.slider-toggle:after{transform:translateX(20px)}
+.enable-btn{min-height:44px;padding:8px 16px;font-size:13px}
+.place-input{font-size:16px;padding:14px;border-radius:12px} /* 16px stops iOS zooming in on focus */
+.place-row button{min-height:44px;font-size:13px;padding:0}
+.place-row span{font-size:12px}
+.care-note{font-size:12.5px}
+/* Saved moments */
+.memories{padding:28px 0 40px}
+.memory-heading p{font-size:13px}
+.outline-btn{width:100%;min-height:46px;font-size:14px}
+.trail{margin-top:18px}
+.memory-images{height:auto;aspect-ratio:4/5}
+.memory-card strong{font-size:13px}
+.memory-card small{font-size:12px}
+.empty-map{padding:36px 20px}
+.empty-map small{font-size:13px}
+.map-note{font-size:12px}
+footer{flex-direction:column;gap:4px;font-size:12px;padding:20px 0 calc(28px + env(safe-area-inset-bottom))}
+#toast{bottom:calc(16px + env(safe-area-inset-bottom));font-size:14px}
+/* Dialogs become bottom sheets with thumb-reach buttons */
+.dialog{place-items:end center;padding:0}
+.dialog-card{width:100%;max-height:92vh;max-height:92dvh;border-radius:22px 22px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom))}
+.dialog-close{right:6px;top:6px;width:44px;height:44px}
+.preview-main{max-height:42vh;max-height:42dvh}
+.dialog-caption,.save-notice{font-size:12.5px}
+.dialog-detail strong{font-size:14px}
+.dialog-detail small{font-size:12px}
+.dialog-actions{flex-direction:column}
+.dialog-actions button{flex:none;width:100%;min-height:48px;font-size:14px}
+.dialog-actions .primary-btn{order:-1}
+}
+
+/* ===== SNIFF MAP ===== */
+.map-wrap{max-width:560px;margin:22px auto 0;border:2px solid #181510;border-radius:18px;overflow:hidden;background:#f9d54a;box-shadow:0 18px 50px #020a0d66}
+#worldMap{display:block;width:100%;height:auto}
+.map-tools{max-width:560px;margin:12px auto 26px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+.pin{cursor:pointer}.pin:focus-visible{outline:2px solid #181510;outline-offset:4px}
+.map-new{transform-box:fill-box;transform-origin:center;animation:pop .7s cubic-bezier(.3,1.5,.5,1) both}
+.map-pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.2s ease-out infinite}
+@keyframes pop{from{opacity:0;transform:scale(.2)}}
+@keyframes pulse{from{opacity:.8;transform:scale(1)}to{opacity:0;transform:scale(2.8)}}
+@media(prefers-reduced-motion:reduce){.map-new,.map-pulse{animation:none!important}}
+@media(max-width:690px){.map-tools{flex-direction:column;align-items:stretch;text-align:center;font-size:13px}}
+
+/* ===== THEME: SNIFF-MAP POSTER (yellow land + ink outlines + sage green) ===== */
+:root{color-scheme:light;--y:#f9d54a;--y2:#fde892;--k:#181510;--g:#c3dec9;--ink:#181510;--muted:#4a4128;--line:rgba(24,21,16,.4);--halo:0 0 2px #f9d54a,0 0 4px #f9d54a,0 0 6px #f9d54a,0 0 9px #f9d54a}
+html{background:#f9d54a}
+body{color:var(--k);background-color:var(--y);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 7Q7 0 14 7T28 7' fill='none' stroke='%23fff8d8' stroke-width='2.4'/%3E%3C/svg%3E")}
+::selection{background:var(--g)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--k)}
+@media(hover:hover){.look-btn:hover,.pill:hover,.outline-btn:hover,.enable-btn:hover{background:var(--g)}}
+/* text that sits directly on the waves gets a yellow halo, like the map labels */
+.topbar,.hero,.camera-heading,.under-camera,footer,.memory-heading{text-shadow:var(--halo)}
+.topbar{border-bottom:0}
+.brand-symbol{background:var(--k);color:var(--y)}
+.brand small,.top-note,.eyebrow,.camera-state,.hero p,.under-camera,footer{color:var(--k)}
+.hero p{color:#2c2616}
+h1 em{color:var(--k);font-style:italic;background:linear-gradient(transparent 60%,var(--g) 60%);text-shadow:none}
+.live-dot{background:#3f9a68;box-shadow:0 0 0 2px var(--k);margin-right:8px}
+/* camera: sage-green frame */
+.phone{background:var(--g);border:3px solid var(--k);box-shadow:0 8px 0 var(--k)}
+.phone-top,.phone-top span:first-child{color:var(--k)}
+.canvas-host{border:3px solid var(--k)}
+.camera-small{color:var(--k)}
+.shutter{border:3px solid var(--k)}
+.shutter-inner{background:#fff;border:3px solid var(--k)}
+.under-camera span:last-child{color:var(--k);font-weight:700}
+/* settings: flat land */
+.settings{background:var(--y);border:3px solid var(--k);box-shadow:0 8px 0 var(--k);border-radius:22px;color:var(--k)}
+.settings-intro,.style-description,.hint,.settings-row small,.place-row span,.care-note{color:var(--muted)}
+.section-label{color:var(--k);font-weight:700}
+.setting-divider{height:0;background:none;border-top:2px dashed rgba(24,21,16,.5)}
+.care-note{border-top:2px dashed rgba(24,21,16,.5)}
+.look-btn,.pill,.enable-btn,.outline-btn,.dialog-actions button{border:2.5px solid var(--k);background:var(--y2);color:var(--k)}
+.look-btn.active,.pill.active{background:var(--g);color:var(--k);box-shadow:0 3px 0 var(--k)}
+.range-label,.range-label output{color:var(--k)}
+.range-label output{font-weight:700}
+input[type=range]{accent-color:var(--k)}
+.slider-toggle{background:var(--y2);box-shadow:inset 0 0 0 2.5px var(--k)}
+.slider-toggle:after{background:var(--k)}
+.switch input:checked+.slider-toggle{background:var(--g)}
+.switch input:checked+.slider-toggle:after{background:var(--k)}
+.place-input{background:#fff8d8;color:var(--k);border:2.5px solid var(--k)}
+.place-input::placeholder{color:#7a6d40}
+.place-row button{color:var(--k);text-decoration:underline;font-weight:600}
+/* saved moments + map: a second piece of land */
+.memories{background:var(--y);border:3px solid var(--k);border-radius:22px;box-shadow:0 8px 0 var(--k);padding:30px 22px 34px;margin:6px 0 42px;text-shadow:none}
+.memory-heading p,.map-note,.map-tools{color:var(--muted)}
+.outline-btn{box-shadow:0 3px 0 var(--k)}
+.map-wrap{border-width:3px;box-shadow:0 6px 0 var(--k)}
+.empty-map{border:2.5px dashed var(--k);color:var(--k)}
+.empty-map>span,.empty-map strong{color:var(--k)}
+.memory-card{background:var(--g);border:2.5px solid var(--k);color:var(--k);box-shadow:0 4px 0 var(--k)}
+.memory-card:hover{border-color:var(--k);transform:translateY(-2px)}
+.memory-card small{color:#35493b}
+.memory-images{background:#fff8d8}
+.memory-images img:nth-child(2){border-color:#fff}
+footer{border-top:0}
+/* toast + dialogs */
+#toast{background:var(--g);color:var(--k);border:2.5px solid var(--k);box-shadow:0 4px 0 var(--k);font-weight:600}
+.dialog-backdrop{background:rgba(24,21,16,.72)}
+.dialog-card{background:var(--y);border:3px solid var(--k);color:var(--k);box-shadow:0 8px 0 var(--k)}
+.dialog-close{color:var(--k)}
+.dialog-caption,.save-notice,.dialog-detail small{color:var(--muted)}
+.dialog-detail img{border:2px solid var(--k)}
+.preview-main{border:3px solid var(--k);background:#fff8d8}
+.dialog-actions .primary-btn{background:var(--g);box-shadow:0 3px 0 var(--k)}
+.dialog-actions .danger-btn{background:transparent;color:#8e2a17;border-color:var(--k)}
+@media(max-width:690px){
+.phone{padding:0;border:0;background:none;box-shadow:none;border-radius:0}
+.camera-controls{background:var(--g);border:3px solid var(--k);border-radius:20px;box-shadow:0 5px 0 var(--k);margin-top:12px;padding:10px 6px}
+.memories{padding:24px 14px 28px}
+.dialog-card{border-bottom:0;box-shadow:0 -4px 0 var(--k)}
+}
+.src-pair{display:flex;justify-content:center;gap:2px;width:100%}
+.src-pair .camera-small{flex:1;min-width:0}
+</style>
+<script defer src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
+<!-- Single-file version: no external sketch.js required. -->
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div class="brand"><span class="brand-symbol">✳</span><div><strong>SNIFF WALK</strong><small>A SCENTFUL LENS</small></div></div><div class="top-note">TWO SENSES · ONE SHARED PLACE</div></header>
+<section class="hero"><div><div class="eyebrow">AN INVITATION TO EXPLORE TOGETHER</div><h1>Two <em>ways of seeing.</em></h1></div><p>While your dog explores with their nose, explore with your eyes. Find the light, follow the colours, keep a moment.</p></section>
+<main class="workspace">
+<section class="camera-column" aria-label="Live camera lens"><div class="camera-heading"><div class="eyebrow">01 / LOOK &amp; CAPTURE</div><div class="camera-state"><span class="live-dot"></span><span id="cameraLabel">DEMO SCENE</span></div></div>
+<div class="phone"><div class="phone-top"><span>✳</span><span>SNIFF LENS</span><span id="sensorLabel">DRAG TO STIR</span></div>
+<div id="canvasHost" class="canvas-host" aria-label="Live camera artwork"><div id="guide" class="dog-guide" hidden><span>DOG STAYS CLEAR</span></div><div class="screen-overlay top"><span class="overlay-pill" id="lookOverlay">MIRROR KALEIDOSCOPE</span><span id="frameCounter">LIVE</span></div><div class="screen-overlay bottom"><span id="instructionText">Drag to stir · tap to position your dog</span></div><div id="captureFlash" class="flash"></div></div>
+<div class="camera-controls"><div class="src-pair"><button id="cameraButton" class="camera-small" type="button" aria-label="Turn on camera"><span>◎</span><small>CAMERA</small></button><button id="uploadButton" class="camera-small" type="button" aria-label="Upload a photo"><span>↑</span><small>PHOTO</small></button></div><input id="photoInput" type="file" accept="image/*" hidden><button id="shutterButton" class="shutter" type="button" aria-label="Capture photograph"><span class="shutter-inner"></span></button><button id="demoButton" class="camera-small" type="button" aria-label="Use illustrated demo"><span>▧</span><small>DEMO</small></button></div></div>
+<div class="under-camera"><span id="statusText" role="status">Try Demo, upload a photo, or turn on your camera.</span><span id="captureCount">0 moments</span></div></section>
+<section class="settings" aria-label="Lens settings"><div class="eyebrow">02 / YOUR LENS</div><h2>Choose how to see.</h2><p class="settings-intro">Point your camera, gently rotate or drag, and capture a pattern you enjoy. The dog stays unaltered in the protected area.</p>
+<div class="section-label">VISUAL EFFECT</div><div class="style-grid" role="group" aria-label="Choose one effect"><button class="look-btn active" data-look="kaleido" aria-pressed="true" type="button"><span class="look-icon">✺</span><strong>Kaleidoscope</strong></button><button class="look-btn" data-look="paint" aria-pressed="false" type="button"><span class="look-icon">〰</span><strong>Oil painting</strong></button></div><p id="styleDescription" class="style-description">Ten mirrored petals turn the surrounding colours and textures into a rotating optical pattern.</p>
+<div class="setting-divider"></div><label class="range-label" for="flowRange"><span>Effect strength</span><output id="flowValue">88%</output></label><input id="flowRange" type="range" min="0" max="100" value="88">
+<label class="range-label" for="dogSize"><span>Clear dog area</span><output id="dogSizeValue">44%</output></label><input id="dogSize" type="range" min="15" max="70" value="44"><div class="two-buttons"><button id="manualDogButton" class="pill active" type="button">✦ Place dog</button><button id="autoDogButton" class="pill" type="button">◌ Auto dog · beta</button></div><p id="maskHint" class="hint">Tap the dog in the image to protect a soft area. Adjust its size above.</p>
+<div class="setting-divider"></div><div class="settings-row"><div><strong>Soft shasha sound</strong><small>Like beads inside a kaleidoscope</small></div><label class="switch"><input id="soundToggle" type="checkbox" checked aria-label="Soft shasha sound"><span class="slider-toggle"></span></label></div>
+<div class="settings-row"><div><strong>Phone movement</strong><small>Gently turn to make the lens rustle</small></div><button class="enable-btn" id="motionButton" type="button">Enable</button></div><p class="hint">You can also drag the image to stir the colour and sound.</p>
+<div class="setting-divider"></div><label class="section-label" for="placeInput">PLACE (OPTIONAL)</label><input class="place-input" id="placeInput" type="text" maxlength="70" placeholder="e.g. Canal-side tree, Delft"><div class="place-row"><button type="button" id="locateButton">⌾ Allow location now</button><span id="locationLabel">Added automatically when you take a photo</span></div><div class="care-note">♡ Stay aware of your dog and surroundings. Play only when safely stopped.</div>
+</section>
+</main>
+<section class="memories" id="memories" aria-label="Saved photo memories"><div class="memory-heading"><div><div class="eyebrow">03 / SNIFF MAP</div><h2>Little worlds, kept.</h2><p>Every saved moment becomes a place on a world your dog sniffed out.</p></div><button id="exportButton" class="outline-btn" type="button">↓ Export memories</button></div><div class="map-wrap"><svg id="worldMap" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Hand-drawn map of the places your dog led you"></svg></div><div class="map-tools"><span id="mapCaption">No places yet</span><button id="mapDownload" class="outline-btn" type="button">↓ Save map image</button></div><div class="section-label">SAVED MOMENTS</div><div id="trail" class="trail"><div class="empty-map"><span>✳</span><strong>No saved moments yet</strong><small>Take a photo, review it, then choose Save.</small></div></div><p class="map-note">Private on this browser. The map shows where places sit relative to each other, not real-world coordinates. Use Export to back up your moments.</p></section>
+<footer><span>Made for the spaces between steps.</span><span>Sniff Walk · D2D design prototype</span></footer>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<!-- A photograph is temporary until the user explicitly presses Save. -->
+<div id="captureDialog" class="dialog" hidden><div class="dialog-backdrop" data-dismiss="draft"></div><section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="captureTitle"><button type="button" class="dialog-close" id="closeCapture" aria-label="Close unsaved photograph">×</button><div class="eyebrow">REVIEW YOUR MOMENT</div><h3 id="captureTitle">Keep this little world?</h3><p class="dialog-caption">Not saved yet. Choose Save or Delete.</p><img class="preview-main" id="draftArt" alt="Unsaved artwork"><div class="dialog-detail"><img id="draftOriginal" alt="Original camera view"><div><strong id="draftPlace"></strong><small id="draftDate"></small></div></div><div class="dialog-actions"><button id="discardCapture" type="button" class="danger-btn">✕ Delete photo</button><button id="saveCapture" type="button" class="primary-btn">✓ Save to Sniff Map</button></div><p class="save-notice">Your photo is only added to the map when you press Save.</p></section></div>
+<div id="previewDialog" class="dialog" hidden><div class="dialog-backdrop" data-dismiss="saved"></div><section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="previewTitle"><button type="button" class="dialog-close" id="closePreview" aria-label="Close saved moment">×</button><div class="eyebrow">YOUR SNIFF MAP</div><h3 id="previewTitle">A moment, kept.</h3><img class="preview-main" id="previewArt" alt="Saved artwork"><div class="dialog-detail"><img id="previewOriginal" alt="Original camera view"><div><strong id="previewPlace"></strong><small id="previewDate"></small></div></div><div class="dialog-actions"><button id="downloadMoment" type="button">↓ Download</button><button id="deleteMoment" class="danger-btn" type="button">✕ Delete saved photo</button></div></section></div>
+
+<script>
+/*
+ * SNIFF WALK / A SCENTFUL LENS — p5.js + browser APIs
+ *
+ * Visual approach: two ways of seeing created directly from live camera pixels.
+ * The original camera frame is restored above the effect in the protected
+ * dog area (manually positioned ellipse, or optional DeepLab dog mask).
+ *
+ * No photographic frames are uploaded by this app. The optional AI model is
+ * downloaded from a CDN and runs in the browser; data stays in the browser.
+ */
+'use strict';
+
+const W = 360;
+const H = 480;
+const $ = (id) => document.getElementById(id);
+const bound = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const lerpValue = (a, b, t) => a + (b - a) * t;
+
+let mainCanvas;
+let rawCanvas, rawCtx, dogCanvas, dogCtx, autoMaskCanvas, autoMaskCtx;
+let video = null, cameraStream = null, cameraOn = false;
+let flow = 0.88;
+let look = 'kaleido'; // 'kaleido' | 'paint'
+let pendingCapture = null; // Never written to storage unless Save is clicked.
+let kaleidoSourceCanvas=null,kaleidoSourceCtx=null;
+
+let phase = 0;
+let time = 0;
+let touchEnergy = 0;
+let gestureDown = null;
+let dogCenter = {x: 0.5, y: 0.67};
+let dogSize = 0.44;
+let dogMode = 'manual';
+let aiModel = null, aiBusy = false, aiLoading = false;
+let aiLastAttempt = 0, lastMaskTime = 0;
+let autoMaskValid = false;
+let soundEnabled = true;
+let motionOn = false;
+let lastOrientation = null;
+let audioCtx = null, rustleSource = null, rustleGain = null, rustleFilter = null;
+let captureCount = 0;
+let currentLocation = null;
+let entries = [];
+let selectedEntry = null;
+let toastTimer = null;
+let db = null;
+let storeReady = false;
+
+// ---------- p5 sketch ----------
+function setup() {
+  pixelDensity(1);
+  mainCanvas = createCanvas(W, H);
+  mainCanvas.parent('canvasHost');
+  frameRate(24);
+  rawCanvas = document.createElement('canvas');
+  rawCanvas.width = W; rawCanvas.height = H;
+  rawCtx = rawCanvas.getContext('2d', {willReadFrequently: false});
+  dogCanvas = document.createElement('canvas');
+  dogCanvas.width = W; dogCanvas.height = H;
+  dogCtx = dogCanvas.getContext('2d');
+  autoMaskCanvas = document.createElement('canvas');
+  autoMaskCanvas.width = W; autoMaskCanvas.height = H;
+  autoMaskCtx = autoMaskCanvas.getContext('2d');
+
+  attachControls();
+  setupStore().then(() => refreshMemories());
+  showGuide();
+}
+
+function draw() {
+  if (!rawCtx) return;
+  time = millis() / 1000;
+  drawSource();
+  renderFlow();
+  renderDog();
+  if (dogMode === 'auto' && aiModel && !aiBusy && time - aiLastAttempt > 1.8) {
+    aiLastAttempt = time;
+    void inferDogMask();
+  }
+  touchEnergy *= 0.90;
+  updateRustle();
+}
+
+function drawSource() {
+  rawCtx.clearRect(0, 0, W, H);
+  if (cameraOn && video && video.readyState >= 2 && video.videoWidth) {
+    const vw = video.videoWidth, vh = video.videoHeight;
+    const s = Math.max(W / vw, H / vh);
+    const sw = W / s, sh = H / s;
+    rawCtx.drawImage(video, (vw - sw) / 2, (vh - sh) / 2, sw, sh, 0, 0, W, H);
+  } else if (photoCanvas) {
+    rawCtx.drawImage(photoCanvas, 0, 0);
+  } else {
+    drawDemoScene(rawCtx, W, H);
+  }
+}
+
+function renderFlow() {
+  // The original image returns over the protected dog last.
+  const c=drawingContext;
+  c.save(); c.clearRect(0,0,W,H);
+  if(look==='kaleido')renderKaleidoscope(c);
+  else renderOilPainting(c);
+  c.restore();
+}
+
+
+// CLASSIC MIRRORED KALEIDOSCOPE
+// Clip an image into identical angular wedges. Every second wedge is
+// flipped, so a scene detail becomes a radiating, mirror-symmetrical pattern.
+// The patch used to form the kaleidoscope is selected AWAY from the manual
+// dog position to avoid mirroring the dog into the abstract background.
+function renderKaleidoscope(c){
+  const cx=W/2, cy=H/2;
+  const wedges=10;
+  const span=Math.PI*2/wedges;
+  const radius=Math.hypot(W,H);
+  const a=flow;
+  // Low effect = close to source photograph; at full strength = pure kaleidoscope.
+  c.drawImage(rawCanvas,0,0);
+  if(a<=0.002)return;
+  let ksource=kaleidoSourceCanvas;
+  if(!ksource){
+    kaleidoSourceCanvas=document.createElement('canvas');
+    kaleidoSourceCanvas.width=W;
+    kaleidoSourceCanvas.height=H;
+    kaleidoSourceCtx=kaleidoSourceCanvas.getContext('2d');
+    ksource=kaleidoSourceCanvas;
+  }
+  // Select the opposite quadrant from the protected dog position. This
+  // prevents the *main* dog from being repeated into all of the mirrors.
+  // Use the dog's manual location even if an experimental AI mask is enabled.
+  const cw=W*.49,ch=H*.49;
+  const sx=dogCenter.x<.5? W-cw:0;
+  const sy=dogCenter.y<.5? H-ch:0;
+  kaleidoSourceCtx.clearRect(0,0,W,H);
+  kaleidoSourceCtx.drawImage(rawCanvas,sx,sy,cw,ch,0,0,W,H);
+  const rotation=phase*.17+time*.015;
+  c.save();
+  c.globalAlpha=Math.min(1,.22+a*1.05);
+  for(let i=0;i<wedges;i++){
+    c.save();
+    c.beginPath();
+    c.moveTo(cx,cy);
+    c.arc(cx,cy,radius,i*span,(i+1)*span,false);
+    c.closePath();
+    c.clip();
+    c.translate(cx,cy);
+    c.rotate(i*span);
+    // Reflect alternate segments about the shared sector edge.
+    if(i%2===1){c.rotate(span);c.scale(1,-1);}
+    // Rotate/zoom the photographed texture gently under the mirrors.
+    c.rotate(rotation);
+    const zoom=1.24+.28*a;
+    c.scale(zoom,zoom);
+    c.translate(-cx,-cy);
+    c.drawImage(ksource,0,0,W,H);
+    c.restore();
+  }
+  c.restore();
+  // A tiny circular rim softens wedge edges and creates a lens feeling.
+  c.save(); c.globalAlpha=.10*a; c.strokeStyle='#f6e5c7';c.lineWidth=1.6;
+  for(let r=65;r<radius;r+=95){c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);c.stroke();}
+  c.restore();
+}
+
+
+// VAN-GOGH-LIKE SWIRLING OIL PAINT — CAMERA-DERIVED BRUSHSTROKES
+// Every painted stroke samples its colour from the ORIGINAL video frame.
+// Two moving vortices steer short, curving marks; there are no external AI
+// services or remote style-transfer uploads.
+function renderOilPainting(c){
+  const a=flow;
+  const t=time*.31+phase*.22;
+  if(a<.002){c.drawImage(rawCanvas,0,0);return;}
+  c.save();
+  c.filter=`saturate(${1+.58*a}) contrast(${1+.10*a}) brightness(${1+.035*a})`;
+  c.drawImage(rawCanvas,0,0);
+  c.restore();
+  let px;
+  try{px=rawCtx.getImageData(0,0,W,H).data;}catch(_){return;}
+  const vortices=[
+    {x:W*(.37+.06*Math.sin(t*.75)),y:H*(.28+.07*Math.cos(t*.57)),strength:1.1},
+    {x:W*(.69+.05*Math.cos(t*.47)),y:H*(.68+.05*Math.sin(t*.69)),strength:-.85},
+    {x:W*.14,y:H*.87,strength:.64}
+  ];
+  c.lineCap='round'; c.lineJoin='round';
+  const cell=13; // ~1000 camera-coloured strokes / frame at 360x480.
+  for(let gy=0;gy<H;gy+=cell){
+    for(let gx=0;gx<W;gx+=cell){
+      const hash=Math.sin(gx*12.9898+gy*78.233)*43758.5453;
+      const f=hash-Math.floor(hash);
+      const x=bound(gx+(f-.5)*11+cell*.5,0,W-1);
+      const y=bound(gy+(Math.sin(hash*16.81)) * 4+cell*.5,0,H-1);
+      const p=(Math.floor(y)*W+Math.floor(x))*4;
+      const r=px[p],g=px[p+1],b=px[p+2];
+      let vx=.10+.3*Math.sin(y*.031+t),vy=.05+.15*Math.cos(x*.028-t);
+      for(const v of vortices){
+        const dx=x-v.x,dy=y-v.y;
+        const inv=v.strength/(38+Math.hypot(dx,dy)*.75);
+        vx+=-dy*inv;vy+=dx*inv;
+      }
+      const ang=Math.atan2(vy,vx)+.12*Math.sin(t+gx*.045+gy*.033);
+      const length=(11+f*11)*(.65+a*.88);
+      const thick=(2.8+f*2.8)*(.48+a*.81);
+      // A slightly warmer light in the highlights, deeper blue shadows.
+      let rr=bound(r*(1.06+.13*a)+(r>g&&r>b?10*a:0),0,255);
+      let gg=bound(g*(1.06+.11*a),0,255);
+      let bb=bound(b*(1.08+.10*a),0,255);
+      c.beginPath();
+      c.moveTo(x-Math.cos(ang)*length*.55,y-Math.sin(ang)*length*.55);
+      c.quadraticCurveTo(x-Math.sin(ang)*length*.3,
+        y+Math.cos(ang)*length*.3,
+        x+Math.cos(ang)*length*.55,y+Math.sin(ang)*length*.55);
+      c.strokeStyle=`rgba(${rr|0},${gg|0},${bb|0},${(.30+.61*a).toFixed(2)})`;
+      c.lineWidth=thick;
+      c.stroke();
+      if(f>.82 && (r+g+b)>430){
+        c.strokeStyle=`rgba(255,224,144,${(.1+.3*a).toFixed(2)})`;
+        c.lineWidth=.9+1.2*a;c.stroke();
+      }
+    }
+  }
+  // Thin luminous curls echo the rhythmic movement of expressive brushwork.
+  c.save();c.globalCompositeOperation='screen';c.globalAlpha=.07+.09*a;
+  for(let i=0;i<7;i++){
+    const xx=W*(.2+i*.11),yy=H*(.15+.08*Math.sin(i*1.8+t));
+    c.strokeStyle=i%2===0?'#f9cc78':'#93bfd8';c.lineWidth=2+i%3;
+    c.beginPath();c.arc(xx,yy,19+i*7,t+i*.5,t+i*.5+Math.PI*1.2);c.stroke();
+  }
+  c.restore();
+}
+
+function renderDog() {
+  dogCtx.clearRect(0, 0, W, H);
+  dogCtx.drawImage(rawCanvas, 0, 0);
+  dogCtx.save();
+  dogCtx.globalCompositeOperation = 'destination-in';
+  if (dogMode === 'auto' && autoMaskValid) {
+    dogCtx.filter = 'blur(4px)';
+    dogCtx.drawImage(autoMaskCanvas, 0, 0, W, H);
+    dogCtx.filter = 'none';
+  } else {
+    const rx = (W * dogSize) / 2;
+    const ry = rx * 1.48;
+    dogCtx.translate(W * dogCenter.x, H * dogCenter.y);
+    dogCtx.scale(rx, ry);
+    const grad = dogCtx.createRadialGradient(0,0,0, 0,0,1);
+    grad.addColorStop(0,'rgba(255,255,255,1)');
+    grad.addColorStop(.68,'rgba(255,255,255,1)');
+    grad.addColorStop(.91,'rgba(255,255,255,.87)');
+    grad.addColorStop(1,'rgba(255,255,255,0)');
+    dogCtx.fillStyle = grad;
+    dogCtx.beginPath(); dogCtx.arc(0,0,1,0,Math.PI*2); dogCtx.fill();
+  }
+  dogCtx.restore();
+  drawingContext.drawImage(dogCanvas, 0, 0);
+}
+
+// ---------- Camera and touch ----------
+async function startCamera() {
+  try {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('Camera requires HTTPS or localhost.');
+    if (cameraStream) stopCamera();
+    const stream = await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:720},height:{ideal:960}}});
+    video = document.createElement('video');
+    video.setAttribute('playsinline',''); video.muted = true; video.autoplay = true;
+    video.srcObject = stream;
+    await video.play();
+    cameraStream = stream;
+    cameraOn = true; autoMaskValid = false; photoCanvas = null; photoGeo = null;
+    $('cameraLabel').textContent = 'LIVE CAMERA';
+    $('statusText').textContent = 'Move the phone gently. Watch the world shift.';
+    toast('Live camera ready · try placing the dog in the clear area');
+  } catch (e) {
+    cameraOn = false;
+    console.warn('Camera unavailable:', e);
+    toast('Camera unavailable — demo mode is ready. Use HTTPS and allow camera access.');
+    $('statusText').textContent = 'Demo mode · camera permission unavailable';
+  }
+}
+function stopCamera() {
+  if (cameraStream) cameraStream.getTracks().forEach(tr => tr.stop());
+  cameraStream = null; cameraOn = false;
+  if (video) {video.pause();video.srcObject=null;}
+  video = null;
+}
+function enterDemo() {
+  stopCamera(); autoMaskValid = false; photoCanvas = null; photoGeo = null;
+  $('cameraLabel').textContent = 'DEMO SCENE';
+  $('statusText').textContent = 'Demo scene · drag the lens to stir the colours.';
+  toast('Demo mode');
+}
+
+function attachControls() {
+  $('cameraButton').addEventListener('click', () => {void initSound();void startCamera();});
+  $('demoButton').addEventListener('click', () => {void initSound();enterDemo();});
+  $('shutterButton').addEventListener('click', () => {void initSound();void captureMoment();});
+  document.querySelectorAll('.look-btn').forEach(b=>b.addEventListener('click',()=>{
+    look=b.dataset.look;
+    const names={kaleido:'MIRROR KALEIDOSCOPE',paint:'SWIRLING OIL PAINT'};
+    const messages={kaleido:'Ten mirrored petals make a kaleidoscope from the camera.',paint:'Moving curls paint with the real colours of your surroundings.'};
+    for(const button of document.querySelectorAll('.look-btn')){
+      const active=button===b;button.classList.toggle('active',active);
+      button.setAttribute('aria-pressed',String(active));
+    }
+    $('lookOverlay').textContent=names[look];
+    $('styleDescription').textContent=messages[look];
+    touchEnergy=.6;
+  }));
+  $('flowRange').addEventListener('input',e=>{flow=Number(e.target.value)/100;$('flowValue').textContent=e.target.value+'%';});
+  $('dogSize').addEventListener('input',e=>{dogSize=Number(e.target.value)/100;$('dogSizeValue').textContent=e.target.value+'%';showGuide();});
+  $('manualDogButton').addEventListener('click',()=>setDogMode('manual'));
+  $('autoDogButton').addEventListener('click',()=>{void activateAutoDog();});
+  $('soundToggle').addEventListener('change',e=>{soundEnabled=e.target.checked;if(soundEnabled)void initSound();else updateRustle(true);});
+  $('motionButton').addEventListener('click',()=>{void enableMotion();});
+  $('locateButton').addEventListener('click',()=>{void locateUser();});
+  $('exportButton').addEventListener('click',exportEntries);
+  $('closeCapture').addEventListener('click',discardCapture);
+  $('discardCapture').addEventListener('click',discardCapture);
+  $('captureDialog').querySelector('.dialog-backdrop').addEventListener('click',discardCapture);
+  $('saveCapture').addEventListener('click',()=>{void savePendingCapture();});
+  $('closePreview').addEventListener('click',closePreview);
+  $('previewDialog').querySelector('.dialog-backdrop').addEventListener('click',closePreview);
+  $('downloadMoment').addEventListener('click',()=>{if(selectedEntry)downloadDataUrl(selectedEntry.art,`sniff-walk-${selectedEntry.id}.jpg`);});
+  $('deleteMoment').addEventListener('click',()=>{if(selectedEntry&&confirm('Delete this saved photograph from your Sniff Map?'))void deleteEntry(selectedEntry.id);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(pendingCapture)discardCapture();else closePreview();}});
+  const host=$('canvasHost');
+  host.addEventListener('pointerdown',e=>{
+    if(e.button!==undefined&&e.button!==0)return;
+    host.setPointerCapture(e.pointerId);
+    gestureDown={x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY};
+    void initSound();
+  });
+  host.addEventListener('pointermove',e=>{
+    if(!gestureDown)return;
+    const dx=e.clientX-gestureDown.lastX,dy=e.clientY-gestureDown.lastY;
+    phase+=(dx*.021+dy*.007)*.9;
+    touchEnergy=bound(touchEnergy+Math.hypot(dx,dy)*.03,0,2.2);
+    gestureDown.lastX=e.clientX;gestureDown.lastY=e.clientY;
+  });
+  const finishPointer=e=>{
+    if(!gestureDown)return;
+    const d=Math.hypot(e.clientX-gestureDown.x,e.clientY-gestureDown.y);
+    if(d<12&&dogMode==='manual'){
+      const rect=host.getBoundingClientRect();
+      dogCenter.x=bound((e.clientX-rect.left)/rect.width,.07,.93);
+      dogCenter.y=bound((e.clientY-rect.top)/rect.height,.10,.90);
+      showGuide();toast('Dog area repositioned');
+    }
+    gestureDown=null;
+  };
+  host.addEventListener('pointerup',finishPointer);
+  host.addEventListener('pointercancel',()=>{gestureDown=null;});
+  window.addEventListener('pagehide',stopCamera);
+}
+
+function showGuide() {
+  const guide=$('guide');
+  const manual=dogMode==='manual' || (dogMode==='auto' && !autoMaskValid);
+  guide.hidden=!manual;
+  if (!manual)return;
+  const width=dogSize*100;
+  guide.style.width=width+'%';
+  // The region is elliptical: its pixel dimensions are rx and ry=1.48rx.
+  guide.style.height=(dogSize*W*1.48/H*100)+'%';
+  guide.style.left=(dogCenter.x*100-width/2)+'%';
+  guide.style.top=(dogCenter.y*100-(dogSize*W*1.48/H*100)/2)+'%';
+}
+function setDogMode(mode) {
+  dogMode=mode;
+  $('manualDogButton').classList.toggle('active',mode==='manual');
+  $('autoDogButton').classList.toggle('active',mode==='auto');
+  if (mode==='manual') {
+    autoMaskValid=false;
+    $('maskHint').textContent='Tap the dog on the image to keep that area unwarped. Adjust its size above.';
+    toast('Manual dog protection enabled');
+  }
+  showGuide();
+}
+
+// ---------- Optional dog-class semantic segmentation ----------
+function loadExternalScript(src) {
+  return new Promise((resolve,reject)=>{
+    const el=document.createElement('script');el.src=src;el.onload=resolve;
+    el.onerror=()=>reject(new Error('Could not load '+src));document.head.appendChild(el);
+  });
+}
+async function activateAutoDog() {
+  if (aiLoading) return;
+  if (aiModel) {
+    setDogMode('auto');
+    $('maskHint').textContent='Auto dog protection is experimental. Switch back to Place dog if its outline is wrong.';
+    await inferDogMask();
+    return;
+  }
+  aiLoading=true;
+  $('autoDogButton').disabled=true;
+  $('autoDogButton').textContent='Loading…';
+  $('maskHint').textContent='Downloading the browser dog-segmentation model. This can take a moment.';
+  try {
+    // External optional modules: first-party model inference happens locally.
+    if (!window.tf) await loadExternalScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js');
+    if (!window.deeplab) await loadExternalScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab@0.2.1/dist/deeplab.min.js');
+    aiModel=await window.deeplab.load({base:'pascal',quantizationBytes:1});
+    setDogMode('auto');
+    $('maskHint').textContent='Auto dog uses a small AI segmentation model. If the dog looks incomplete, switch to Place dog.';
+    toast('Dog model ready · searching for your dog');
+    await inferDogMask();
+  } catch(e) {
+    console.warn('Auto mask unavailable',e);
+    setDogMode('manual');
+    $('maskHint').textContent='Auto dog could not load on this device. Tap the dog to protect a soft-edged area instead.';
+    toast('Auto dog unavailable · manual protection still works');
+  } finally {
+    aiLoading=false;
+    $('autoDogButton').disabled=false;
+    $('autoDogButton').textContent='◌ Auto dog · beta';
+  }
+}
+async function inferDogMask() {
+  if (!aiModel || aiBusy || dogMode!=='auto')return;
+  aiBusy=true;
+  try {
+    const segmented=await aiModel.segment(rawCanvas);
+    if (dogMode!=='auto')return;
+    const colorEntry=Object.entries(segmented.legend).find(([k])=>k.toLowerCase()==='dog');
+    if (!colorEntry) {
+      if(time-lastMaskTime>5) {autoMaskValid=false;showGuide();}
+      $('maskHint').textContent='No dog detected in this frame. Move closer or use Place dog for reliable protection.';
+      return;
+    }
+    const target=colorEntry[1];
+    const sw=segmented.width,sh=segmented.height,src=segmented.segmentationMap;
+    if (!sw || !sh || src.length<sw*sh*4) return;
+    const temp=document.createElement('canvas');temp.width=sw;temp.height=sh;
+    const tctx=temp.getContext('2d');
+    const mask=tctx.createImageData(sw,sh);
+    let count=0;
+    for(let i=0;i<sw*sh;i++) {
+      const j=i*4;
+      const found=Math.abs(src[j]-target[0])<=2&&Math.abs(src[j+1]-target[1])<=2&&Math.abs(src[j+2]-target[2])<=2;
+      if(found){mask.data[j]=255;mask.data[j+1]=255;mask.data[j+2]=255;mask.data[j+3]=255;count++;}
+    }
+    if(count<Math.max(16,sw*sh*.002)) {
+      autoMaskValid=false;showGuide();
+      $('maskHint').textContent='Dog outline too small. Try Place dog or bring the dog into view.';
+      return;
+    }
+    tctx.putImageData(mask,0,0);
+    autoMaskCtx.clearRect(0,0,W,H);
+    autoMaskCtx.imageSmoothingEnabled=true;
+    autoMaskCtx.drawImage(temp,0,0,W,H);
+    autoMaskValid=true;lastMaskTime=time;showGuide();
+    $('maskHint').textContent='The dog is kept unchanged; the surroundings flow. If the outline slips, use Place dog.';
+  }catch(e){console.warn('Dog mask inference failed',e);autoMaskValid=false;showGuide();}
+  finally{aiBusy=false;}
+}
+
+// ---------- Phone movement + synthesized shasha ----------
+async function enableMotion() {
+  if (motionOn) {toast('Phone movement is already enabled');return;}
+  try {
+    if(typeof DeviceOrientationEvent==='undefined')throw new Error('No motion sensor');
+    if(typeof DeviceOrientationEvent.requestPermission==='function') {
+      const result=await DeviceOrientationEvent.requestPermission();
+      if(result!=='granted')throw new Error('Permission denied');
+    }
+    window.addEventListener('deviceorientation',onOrientation);
+    motionOn=true;
+    $('sensorLabel').textContent='MOTION ON';
+    $('motionButton').textContent='Enabled';
+    await initSound();
+    toast('Gently turn the phone to stir the scene');
+  }catch(e){console.warn(e);toast('Motion permission unavailable · drag the image instead');}
+}
+function onOrientation(e) {
+  if (!Number.isFinite(e.gamma) || !Number.isFinite(e.beta))return;
+  if(lastOrientation) {
+    let deltaG=Math.abs(e.gamma-lastOrientation.gamma);
+    deltaG=Math.min(deltaG,Math.abs(360-deltaG));
+    const deltaB=Math.abs(e.beta-lastOrientation.beta);
+    const motion=bound((deltaG+deltaB)*.09,0,1.3);
+    touchEnergy=bound(touchEnergy*.84+motion,0,2.4);
+    phase+= (e.gamma-lastOrientation.gamma)*.007;
+  }
+  lastOrientation={gamma:e.gamma,beta:e.beta};
+}
+async function initSound(){
+  if (!soundEnabled)return;
+  try {
+    if(!audioCtx){
+      const AudioContextCtor=window.AudioContext||window.webkitAudioContext;
+      if(!AudioContextCtor)return;
+      audioCtx=new AudioContextCtor();
+      const len=Math.floor(audioCtx.sampleRate*2.8);
+      const buffer=audioCtx.createBuffer(1,len,audioCtx.sampleRate);
+      const samples=buffer.getChannelData(0);
+      let brown=0;
+      for(let i=0;i<len;i++){
+        brown=(brown + (Math.random()*2-1)*.15)/1.13;
+        samples[i]=bound(brown*.62+(Math.random()*2-1)*.24,-1,1);
+      }
+      rustleSource=audioCtx.createBufferSource();rustleSource.buffer=buffer;rustleSource.loop=true;
+      rustleFilter=audioCtx.createBiquadFilter();rustleFilter.type='bandpass';
+      rustleFilter.frequency.value=900;rustleFilter.Q.value=.48;
+      rustleGain=audioCtx.createGain();rustleGain.gain.value=0;
+      rustleSource.connect(rustleFilter).connect(rustleGain).connect(audioCtx.destination);
+      rustleSource.start();
+    }
+    if(audioCtx.state==='suspended')await audioCtx.resume();
+  }catch(e){console.warn('Audio unavailable',e);}
+}
+function updateRustle(forceMute=false){
+  if (!audioCtx || !rustleGain || audioCtx.state!=='running')return;
+  const motion=bound(touchEnergy,0,1.8);
+  const target=(!forceMute && soundEnabled) ? .025*motion : 0;
+  rustleGain.gain.setTargetAtTime(target,audioCtx.currentTime,.075);
+  rustleFilter.frequency.setTargetAtTime(700+motion*730,audioCtx.currentTime,.09);
+}
+function shashaClick() {
+  if(!soundEnabled||!audioCtx||audioCtx.state!=='running')return;
+  const buffer=audioCtx.createBuffer(1,Math.floor(audioCtx.sampleRate*.27),audioCtx.sampleRate);
+  const out=buffer.getChannelData(0);
+  let v=0;
+  for(let i=0;i<out.length;i++){
+    v=(v+(Math.random()*2-1)*.4)/1.18;
+    out[i]=bound(v + (Math.random()*2-1)*.08,-1,1);
+  }
+  const src=audioCtx.createBufferSource();src.buffer=buffer;
+  const filter=audioCtx.createBiquadFilter();filter.type='highpass';filter.frequency.value=430;
+  const gain=audioCtx.createGain();
+  gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.19,audioCtx.currentTime+.024);
+  gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.25);
+  src.connect(filter).connect(gain).connect(audioCtx.destination);
+  src.start();src.stop(audioCtx.currentTime+.27);
+}
+
+// ---------- Capture + local memory ----------
+function captureMoment() {
+  if(!mainCanvas||!rawCanvas)return;
+  shashaClick();
+  const flash=$('captureFlash');flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go');
+  let art,original;
+  try{
+    art=mainCanvas.elt.toDataURL('image/jpeg',.87);
+    original=rawCanvas.toDataURL('image/jpeg',.75);
+  }catch(e){toast('Could not capture this frame');return;}
+  const now=new Date();
+  pendingCapture={id:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6),
+    timestamp:now.toISOString(),place:$('placeInput').value.trim()||'An unnamed pause',
+    lat:null,lon:null,
+    art,original,flow,mask:dogMode,style:look};
+  $('draftArt').src=art;$('draftOriginal').src=original;
+  $('draftPlace').textContent=pendingCapture.place;
+  $('draftDate').textContent=formatDate(pendingCapture.timestamp);
+  $('captureDialog').hidden=false;
+  $('saveCapture').focus();
+  autoLocate(pendingCapture);
+}
+function discardCapture(){
+  // Discard is an in-memory deletion only. No draft is ever put into IndexedDB.
+  pendingCapture=null;
+  $('captureDialog').hidden=true;
+  $('draftArt').removeAttribute('src');$('draftOriginal').removeAttribute('src');
+  $('shutterButton').focus();
+  toast('Unsaved photo deleted');
+}
+async function savePendingCapture(){
+  if(!pendingCapture)return;
+  const entry=pendingCapture;
+  const button=$('saveCapture');button.disabled=true;
+  try {
+    await Promise.race([locatePromise,new Promise(r=>setTimeout(r,2500))]); // give GPS a moment
+    await saveEntry(entry); // The ONLY write path for a newly captured photograph.
+    pendingCapture=null;$('captureDialog').hidden=true;
+    $('draftArt').removeAttribute('src');$('draftOriginal').removeAttribute('src');
+    await refreshMemories();
+    $('shutterButton').focus();
+    toast('✦ Saved to your Sniff Map');
+  }catch(e){console.error(e);toast('Save failed. The photo is still in your preview.');}
+  finally {button.disabled=false;}
+}
+
+async function setupStore() {
+  try{
+    if(!('indexedDB' in window))throw new Error('IndexedDB not supported');
+    db=await new Promise((resolve,reject)=>{
+      const req=indexedDB.open('sniffWalkArtDiary',1);
+      req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('entries'))req.result.createObjectStore('entries',{keyPath:'id'});};
+      req.onsuccess=()=>resolve(req.result);
+      req.onerror=()=>reject(req.error);
+    });
+  }catch(e){console.warn('IndexedDB unavailable, using localStorage fallback',e);db=null;}
+  storeReady=true;
+}
+function withStore(method,entryOrId){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('entries',method==='getAll'?'readonly':'readwrite');
+    const store=tx.objectStore('entries');
+    const req=method==='put'?store.put(entryOrId):method==='delete'?store.delete(entryOrId):store.getAll();
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+function fallbackEntries(){try{return JSON.parse(localStorage.getItem('sniffWalkMemories')||'[]');}catch(_){return [];}}
+async function saveEntry(entry) {
+  if(!storeReady)await setupStore();
+  if(db)return withStore('put',entry);
+  const list=fallbackEntries();list.push(entry);localStorage.setItem('sniffWalkMemories',JSON.stringify(list.slice(-14)));
+}
+async function getEntries() {
+  if(!storeReady)await setupStore();
+  return db?await withStore('getAll'):fallbackEntries();
+}
+async function deleteEntry(id){
+  if(db)await withStore('delete',id);
+  else localStorage.setItem('sniffWalkMemories',JSON.stringify(fallbackEntries().filter(e=>e.id!==id)));
+  closePreview(); await refreshMemories();toast('Moment deleted');
+}
+async function refreshMemories(){
+  entries=(await getEntries()).sort((a,b)=>b.timestamp.localeCompare(a.timestamp));
+  captureCount=entries.length;
+  $('captureCount').textContent=`${captureCount} ${captureCount===1?'moment':'moments'}`;
+  const trail=$('trail');trail.replaceChildren();
+  if(!entries.length){
+    const empty=document.createElement('div');empty.className='empty-map';
+    empty.innerHTML='<span>✳</span><strong>No saved moments yet</strong><small>Take a photo, review it, then choose Save.</small>';
+    trail.appendChild(empty);drawMap();return;
+  }
+  for(const e of entries){
+    const card=document.createElement('button');card.type='button';card.className='memory-card';
+    const imgs=document.createElement('div');imgs.className='memory-images';
+    const art=new Image();art.src=e.art;art.alt='Captured camera artwork';
+    const original=new Image();original.src=e.original;original.alt='Original scene';
+    imgs.append(art,original);
+    const title=document.createElement('strong');title.textContent=e.place;
+    const date=document.createElement('small');date.textContent=formatDate(e.timestamp);
+    card.append(imgs,title,date);
+    card.addEventListener('click',()=>openPreview(e));
+    trail.appendChild(card);
+  }
+  drawMap();
+}
+function formatDate(iso){return new Date(iso).toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function openPreview(entry){
+  selectedEntry=entry;
+  $('previewArt').src=entry.art;$('previewOriginal').src=entry.original;
+  $('previewPlace').textContent=entry.place;
+  $('previewDate').textContent=formatDate(entry.timestamp)+(entry.lat!==null?` · ${entry.lat.toFixed(4)}, ${entry.lon.toFixed(4)}`:'');
+  $('previewDialog').hidden=false;
+}
+function closePreview(){$('previewDialog').hidden=true;selectedEntry=null;}
+function downloadDataUrl(dataUrl,name){
+  const a=document.createElement('a');a.download=name;a.href=dataUrl;a.click();
+}
+function exportEntries(){
+  if(!entries.length){toast('Capture your first moment before exporting');return;}
+  const blob=new Blob([JSON.stringify({app:'Sniff Walk',version:2,exportedAt:new Date().toISOString(),entries},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='sniff-walk-memories.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('Your memories have been exported');
+}
+async function locateUser() {
+  if(!navigator.geolocation){toast('Location is not available');return;}
+  $('locationLabel').textContent='Locating…';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    currentLocation={latitude:pos.coords.latitude,longitude:pos.coords.longitude,t:Date.now()};
+    $('locationLabel').textContent='Coordinates attached';
+    toast('Coordinates will be attached to your next capture');
+  },()=>{$('locationLabel').textContent='Location not added';toast('Location permission not granted — you can name the place instead');},{enableHighAccuracy:false,timeout:9000,maximumAge:60000});
+}
+function toast(message) {
+  const el=$('toast');el.textContent=message;el.classList.add('show');
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),3600);
+}
+
+// ---------- Deliberately illustrative offline demo environment ----------
+let demoCache=null;
+function drawDemoScene(c,w,h){ // painted once, then copied every frame
+  if(!demoCache||demoCache.width!==w||demoCache.height!==h){
+    demoCache=document.createElement('canvas');demoCache.width=w;demoCache.height=h;paintDemo(demoCache.getContext('2d'),w,h);
+  }
+  c.drawImage(demoCache,0,0);
+}
+function paintDemo(c,w,h){
+  // Same language as the Sniff Map: yellow land, white wave sea, thick ink outlines, sage green accents.
+  const WH='#fff8d8',SG='#c3dec9',TAU=Math.PI*2;
+  const line=wd=>{c.lineWidth=wd;c.strokeStyle=INK;};
+  const done=(fill,wd)=>{c.fillStyle=fill;c.fill();line(wd||2.6);c.stroke();};
+  c.lineJoin='round';c.lineCap='round';
+  c.fillStyle=LAND;c.fillRect(0,0,w,h);
+  c.strokeStyle=WH;c.lineWidth=2.2;c.beginPath();
+  for(let y=0;y<h;y+=14)for(let x=0;x<w;x+=28){c.moveTo(x,y+7);c.quadraticCurveTo(x+7,y,x+14,y+7);c.quadraticCurveTo(x+21,y+14,x+28,y+7);}
+  c.stroke();
+  // sea life
+  let x=w*.2,y=h*.17;
+  c.beginPath();c.moveTo(x-12,y);c.quadraticCurveTo(x-2,y-10,x+8,y);c.lineTo(x+16,y-7);c.lineTo(x+16,y+7);c.lineTo(x+8,y);c.quadraticCurveTo(x-2,y+10,x-12,y);done(WH);
+  x=w*.74;y=h*.2;
+  c.beginPath();c.moveTo(x-16,y+10);c.lineTo(x+16,y+10);c.lineTo(x+11,y+18);c.lineTo(x-11,y+18);c.closePath();done(WH);
+  c.beginPath();c.moveTo(x+2,y-24);c.quadraticCurveTo(x+17,y-6,x+2,y+7);c.closePath();done(WH);
+  c.beginPath();c.moveTo(x-1,y-26);c.lineTo(x-1,y+10);line(2.6);c.stroke();
+  // island
+  const shore=t=>h*.42+Math.sin(t*.035)*10+Math.sin(t*.09)*4;
+  c.beginPath();c.moveTo(0,shore(0));for(let t=4;t<=w;t+=4)c.lineTo(t,shore(t));c.lineTo(w,h+10);c.lineTo(0,h+10);c.closePath();done(LAND,5);
+  c.beginPath();for(let t=6;t<w;t+=11){c.moveTo(t,shore(t)+7);c.lineTo(t-2,shore(t)+14);}line(2);c.stroke();
+  c.beginPath();c.ellipse(w*.5,h*.82,165,100,0,0,TAU);done(SG,2.4);
+  c.setLineDash([9,7]);c.beginPath();c.moveTo(w*.14,h);c.bezierCurveTo(w*.06,h*.8,w*.3,h*.62,w*.5,h*.58);c.bezierCurveTo(w*.62,h*.55,w*.7,h*.56,w*.78,h*.52);line(2.6);c.stroke();c.setLineDash([]);
+  // mountain, house, bench
+  x=w*.34;y=shore(x)+16;
+  c.beginPath();c.moveTo(x-32,y);c.lineTo(x-6,y-42);c.lineTo(x+4,y-27);c.lineTo(x+14,y-38);c.lineTo(x+36,y);c.closePath();done(LAND);
+  c.beginPath();c.moveTo(x-6,y-42);c.lineTo(x-13,y-31);c.lineTo(x-7,y-34);c.lineTo(x-2,y-30);c.closePath();done(WH,2);
+  x=w*.8;y=h*.49;
+  c.beginPath();c.rect(x-22,y-22,44,36);done(WH);
+  c.beginPath();c.moveTo(x-29,y-22);c.lineTo(x,y-46);c.lineTo(x+29,y-22);c.closePath();done(INK);
+  c.beginPath();c.rect(x-5,y-2,10,16);done(LAND,2.2);
+  c.beginPath();c.rect(w*.34,h*.53,w*.28,9);done(WH,2.6);
+  c.beginPath();c.moveTo(w*.37,h*.53+9);c.lineTo(w*.37,h*.53+24);c.moveTo(w*.59,h*.53+9);c.lineTo(w*.59,h*.53+24);line(3);c.stroke();
+  // pines
+  const pine=(px,py,s)=>{c.beginPath();c.moveTo(px,py+14*s);c.lineTo(px,py+27*s);line(3);c.stroke();
+    c.beginPath();c.moveTo(px,py-34*s);c.lineTo(px+15*s,py-8*s);c.lineTo(px+7*s,py-8*s);c.lineTo(px+19*s,py+14*s);c.lineTo(px-19*s,py+14*s);c.lineTo(px-7*s,py-8*s);c.lineTo(px-15*s,py-8*s);c.closePath();done(SG);};
+  pine(w*.12,h*.58,1.2);pine(w*.28,h*.54,.8);pine(w*.91,h*.64,1.05);
+  // grass tufts
+  for(let i=0;i<18;i++){const gx=(i*53)%w,gy=h*.6+(i*37)%(h*.38);if(Math.abs(gx-w*.52)<75&&Math.abs(gy-h*.7)<85)continue;
+    c.beginPath();c.moveTo(gx-4,gy);c.lineTo(gx,gy-7);c.lineTo(gx+4,gy);line(2);c.stroke();}
+  // the dog: flat cream shapes, black spots + hand-drawn lines, yellow jumper, sage scarf (colours of this page)
+  c.save();c.translate(w*.52,h*.7);c.scale(.25,.25);c.translate(-410,-440);
+  const P=(d,fill)=>{c.fillStyle=fill;c.fill(new Path2D(d));};
+  const L=(d,lw)=>{c.lineWidth=lw;c.strokeStyle=INK;c.stroke(new Path2D(d));};
+  const dot=(x,y,rx,ry,rot)=>{c.beginPath();c.ellipse(x,y,rx,ry||rx,rot||0,0,TAU);c.fillStyle=INK;c.fill();};
+  c.strokeStyle=WH;c.lineWidth=12;c.beginPath();                          // sparkle
+  [70,50,76,46,70,52,72,48].forEach((r,k)=>{const q=k*Math.PI/4+.2;c.moveTo(600+Math.cos(q)*10,160+Math.sin(q)*10);c.lineTo(600+Math.cos(q)*r,160+Math.sin(q)*r);});
+  c.stroke();
+  P('M655 592C705 582 760 520 755 418C768 408 783 432 786 472C791 535 742 602 692 624C670 630 658 612 655 592Z',WH);                    // tail
+  P('M624 552C660 556 686 590 694 606L640 642L560 652C520 652 472 650 448 640C470 618 560 590 624 552Z',WH);                           // haunch
+  P('M462 640C482 662 540 682 584 692C594 712 584 746 542 754L452 756C424 746 430 716 456 706C482 692 470 664 462 640Z',WH);           // hind foot
+  P('M206 604C192 626 214 668 246 670C258 642 248 616 236 606Z',WH);P('M300 690L386 682C382 722 362 746 348 762L304 766C286 746 290 716 300 690Z',WH);
+  dot(655,580,28,25);dot(626,650,25,28);dot(548,616,42,22,-.35);dot(606,578,9);dot(722,578,22,15,-.6);dot(766,490,8);dot(770,528,10,12);
+  P('M282 335C340 330 380 300 405 285C480 345 580 440 655 510C662 528 648 545 625 552C560 590 480 625 420 636C395 640 385 660 385 685L300 695C295 650 295 610 300 580C275 600 225 615 195 590C188 560 215 520 250 480C270 450 280 410 282 335Z',LAND);  // jumper
+  L('M286 440C300 482 304 530 298 578',9);L('M428 436L424 520C420 556 414 582 402 626',9);L('M424 522C440 482 480 480 489 498C506 542 498 586 470 596C446 602 428 592 420 580',9);
+  P('M118 208C170 195 240 175 290 150L330 160C360 190 380 220 385 250C360 285 320 295 290 292C240 282 180 268 148 256C125 245 108 225 118 208Z',WH);  // head
+  dot(312,248,8);dot(346,262,9);dot(303,277,7);dot(272,196,7);dot(126,216,19,14,-.45);
+  P('M195 118C215 108 260 120 285 148C265 160 240 160 225 150C205 140 195 130 195 118Z',INK);P('M322 152C345 145 375 160 383 185C378 215 360 235 345 232C328 220 318 185 322 152Z',INK);
+  L('M150 258C190 276 240 276 272 246',9);
+  c.lineCap='butt';                                                           // scarf: two flowing tails, then the loop
+  ['M272 322Q190 374 106 398','M290 340Q232 402 152 492'].forEach(d=>{L(d,40);c.lineWidth=24;c.strokeStyle=SG;c.stroke(new Path2D(d));});
+  c.lineCap='round';
+  for(let i=0;i<4;i++){L(`M108 ${388+i*13}L${44+i*8} ${384+i*22}`,9);L(`M${152+i*9} ${482+i*9}L${104+i*9} ${516+i*9}`,9);}
+  P('M262 318C256 290 330 292 386 264C410 252 414 292 386 316C350 348 296 348 262 318Z',SG);L('M262 318C256 290 330 292 386 264C410 252 414 292 386 316C350 348 296 348 262 318Z',10);
+  c.restore();
+}
+
+
+// ---------- Sniff map: a world drawn from the RELATIVE positions of saved photos ----------
+const MAP_W=600,MAP_H=800,INK='#181510',LAND='#f9d54a';
+const GS=`fill="${LAND}" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"`;
+const GLYPH_DEFS=`
+<g id="g-tree" ${GS}><path d="M0-17 9-3H4L11 8H-11L-4-3H-9Z"/><path d="M0 8V16"/></g>
+<g id="g-house" ${GS}><path d="M-11-1 0-11 11-1V11H-11Z" fill="#fff"/><path d="M-3 11V3H3V11"/></g>
+<g id="g-mount" ${GS}><path d="M-16 11-4-9 2-1 7-7 16 11Z"/><path d="M-4-9-8-3-4-5-1-2" fill="#fff"/></g>
+<g id="g-tent" ${GS}><path d="M-13 11 0-11 13 11Z"/><path d="M-4 11 0 3 4 11"/></g>
+<g id="g-bush" ${GS}><path d="M-13 9C-16 2-8-3-5-1-4-8 6-8 7-1 14-2 16 6 12 9Z"/></g>
+<g id="g-bone" ${GS}><g transform="rotate(-35)" fill="#fff"><rect x="-10" y="-2.6" width="20" height="5.2" rx="2"/><circle cx="-11.5" cy="-3" r="3.3"/><circle cx="-11.5" cy="3" r="3.3"/><circle cx="11.5" cy="-3" r="3.3"/><circle cx="11.5" cy="3" r="3.3"/></g></g>
+<g id="g-paw" fill="${INK}"><ellipse cy="5" rx="6.5" ry="5"/><circle cx="-8" cy="-2" r="2.8"/><circle cx="-3" cy="-7.5" r="2.8"/><circle cx="3" cy="-7.5" r="2.8"/><circle cx="8" cy="-2" r="2.8"/></g>
+<g id="g-fish" ${GS}><path d="M-11 0Q-3-9 6 0Q-3 9-11 0ZM6 0 13-6V6Z" fill="#fff"/></g>
+<g id="g-boat" ${GS}><path d="M0-13V6M2-13Q13-3 2 4Z" fill="#fff"/><path d="M-11 8H11L7 13H-7Z"/></g>`;
+const LAND_G=['tree','tree','house','mount','tent','bush','bone','tree'],SEA_G=['fish','boat','fish'];
+let locatePromise=Promise.resolve();
+
+function hashStr(s){let h=7;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+// Ask the browser for a fix when a photo is taken; the draft keeps it only if it arrives.
+function autoLocate(p){
+  locatePromise=Promise.resolve();
+  if(photoCanvas){ // an uploaded photo: use the place stored inside it, never where the user happens to be now
+    if(photoGeo){p.lat=photoGeo.latitude;p.lon=photoGeo.longitude;$('draftDate').textContent=formatDate(p.timestamp)+' · location from photo';}
+    return;
+  }
+  if(!navigator.geolocation)return;
+  const fresh=currentLocation&&currentLocation.t&&Date.now()-currentLocation.t<90000;
+  if(fresh){p.lat=currentLocation.latitude;p.lon=currentLocation.longitude;return;}
+  locatePromise=new Promise(done=>{
+    navigator.geolocation.getCurrentPosition(pos=>{
+      currentLocation={latitude:pos.coords.latitude,longitude:pos.coords.longitude,t:Date.now()};
+      p.lat=currentLocation.latitude;p.lon=currentLocation.longitude;
+      $('locationLabel').textContent='Coordinates attached';
+      if(pendingCapture===p)$('draftDate').textContent=formatDate(p.timestamp)+' · location added';
+      done();
+    },()=>done(),{enableHighAccuracy:true,timeout:6000,maximumAge:30000});
+  });
+}
+
+// Entries -> places (photos within ~35 m share a place) in visiting order.
+function buildPlaces(){
+  const list=entries.slice().sort((a,b)=>a.timestamp.localeCompare(b.timestamp));
+  const geo=list.filter(e=>e.lat!=null&&e.lon!=null);
+  const lat0=geo.length?geo.reduce((s,e)=>s+e.lat,0)/geo.length:0;
+  const lon0=geo.length?geo.reduce((s,e)=>s+e.lon,0)/geo.length:0;
+  const places=[],seq=[];let prev=null;
+  for(const e of list){
+    let x,y;
+    if(e.lat!=null&&e.lon!=null){x=(e.lon-lon0)*Math.cos(lat0*Math.PI/180)*111320;y=-(e.lat-lat0)*110540;}
+    else{ // no coordinates (demo / permission denied): the dog wanders a short step from the last place
+      const r=rng(hashStr(e.id)),a=r()*6.283,d=50+r()*50;
+      x=(prev?prev.x:0)+Math.cos(a)*d;y=(prev?prev.y:0)+Math.sin(a)*d;
+    }
+    prev={x,y};
+    let pl=places.find(q=>Math.hypot(q.x-x,q.y-y)<35);
+    if(!pl){pl={x,y,items:[]};places.push(pl);}
+    pl.items.push(e);
+    if(seq[seq.length-1]!==pl)seq.push(pl);
+  }
+  places.forEach((pl,i)=>{
+    const named=pl.items.slice().reverse().find(e=>e.place&&e.place!=='An unnamed pause');
+    pl.name=named?named.place:'Pause '+(i+1);pl.last=pl.items[pl.items.length-1];
+    pl.R=60+Math.min(pl.items.length,6)*7;
+  });
+  return{places,seq};
+}
+
+// Fit metres into the poster, then nudge crowded places apart (relative layout is kept).
+function layoutPlaces(places){
+  const xs=places.map(p=>p.x),ys=places.map(p=>p.y);
+  const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const s=Math.min(360/Math.max(maxX-minX,120),520/Math.max(maxY-minY,160));
+  const cx=(minX+maxX)/2,cy=(minY+maxY)/2;
+  places.forEach(p=>{p.px=MAP_W/2+(p.x-cx)*s;p.py=MAP_H/2-20+(p.y-cy)*s;});
+  for(let k=0;k<60;k++)for(let i=0;i<places.length;i++)for(let j=i+1;j<places.length;j++){
+    const a=places[i],b=places[j];let dx=b.px-a.px,dy=b.py-a.py;const d=Math.hypot(dx,dy)||.01;
+    if(d<130){const m=(130-d)/2;dx/=d;dy/=d;a.px-=dx*m;a.py-=dy*m;b.px+=dx*m;b.py+=dy*m;}
+  }
+  places.forEach(p=>{p.px=bound(p.px,100,MAP_W-100);p.py=bound(p.py,130,MAP_H-190);});
+}
+
+function drawMap(){
+  const svg=$('worldMap');if(!svg)return;
+  const{places,seq}=buildPlaces();
+  const compass=`<g transform="translate(82 712)"><circle r="40" fill="none" stroke="${INK}" stroke-width="3"/><path d="M0-52 8-8 52 0 8 8 0 52-8 8-52 0-8-8Z" fill="#fff" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/><path d="M0-52 8-8 0 0ZM0 52-8 8 0 0Z" fill="${INK}"/><circle r="6" fill="${LAND}" stroke="${INK}" stroke-width="3"/><text y="-62" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="16" fill="${INK}">N</text></g>`;
+  let rays='';for(let k=0;k<14;k++){const a=k*Math.PI/7+.2;rays+=`<path d="M82 712l${(Math.cos(a)*1000).toFixed(0)} ${(Math.sin(a)*1000).toFixed(0)}"/>`;}
+  let h=`<defs><pattern id="waves" width="28" height="14" patternUnits="userSpaceOnUse"><path d="M0 7Q7 0 14 7T28 7" fill="none" stroke="#fff8d8" stroke-width="2.4"/></pattern><filter id="wob" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="20"/></filter>${GLYPH_DEFS}</defs><rect width="600" height="800" fill="${LAND}"/><rect width="600" height="800" fill="url(#waves)"/><g stroke="#fff8d8" stroke-width="3" opacity=".75">${rays}</g>`;
+  if(!places.length){
+    h+=`<g text-anchor="middle" font-family="Georgia,serif" fill="${INK}"><circle cx="300" cy="370" r="120" fill="${LAND}" stroke="${INK}" stroke-width="4" stroke-dasharray="10 8"/><text x="300" y="365" font-size="22" font-weight="700">NO LAND YET</text><text x="300" y="396" font-size="15" font-style="italic">Your first saved moment</text><text x="300" y="416" font-size="15" font-style="italic">raises the first island.</text></g>${compass}`;
+    svg.innerHTML=h;$('mapCaption').textContent='No places yet · save a moment to start';return;
+  }
+  layoutPlaces(places);
+  // route segments, gently curved
+  const segs=[];
+  for(let i=1;i<seq.length;i++){
+    const a=seq[i-1],b=seq[i],dx=b.px-a.px,dy=b.py-a.py,L=Math.hypot(dx,dy)||1;
+    const k=(hashStr('s'+i)%2?1:-1)*L*.16,cx=(a.px+b.px)/2-dy/L*k,cy=(a.py+b.py)/2+dx/L*k;
+    segs.push({a,b,cx,cy,d:`M${a.px.toFixed(1)} ${a.py.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${b.px.toFixed(1)} ${b.py.toFixed(1)}`});
+  }
+  // island: black cliff edge + outline + flat land, wobbled into a coastline
+  const shapes=(col,grow,dy)=>places.map(p=>`<circle cx="${p.px.toFixed(1)}" cy="${(p.py+dy).toFixed(1)}" r="${p.R+grow}" fill="${col}"/>`).join('')+segs.map(s=>`<path d="${s.d}" transform="translate(0 ${dy})" fill="none" stroke="${col}" stroke-width="${58+grow*2}" stroke-linecap="round"/>`).join('');
+  h+=`<g filter="url(#wob)">${shapes(INK,5,10)}${shapes(INK,5,0)}${shapes(LAND,0,0)}</g>`;
+  // dashed scent trail + paw prints
+  const q=(s,t)=>[(1-t)*(1-t)*s.a.px+2*(1-t)*t*s.cx+t*t*s.b.px,(1-t)*(1-t)*s.a.py+2*(1-t)*t*s.cy+t*t*s.b.py];
+  h+=`<g fill="none" stroke="${INK}" stroke-width="2.6" stroke-dasharray="10 8" stroke-linecap="round">${segs.map(s=>`<path d="${s.d}"/>`).join('')}</g>`;
+  segs.forEach(s=>[.3,.5,.7].forEach((t,i)=>{
+    const[x,y]=q(s,t),a=Math.atan2(s.b.py-s.a.py,s.b.px-s.a.px)*57.3+90,o=i%2?6:-6;
+    h+=`<use href="#g-paw" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(0)}) translate(${o} 0) scale(.62)"/>`;
+  }));
+  // landmarks around each place
+  places.forEach((p,i)=>{
+    const r=rng(hashStr(p.last.id)+i),a0=r()*6.283,isNew=p.last===entries[0];
+    for(let k=0;k<3;k++){
+      const a=a0+k*2.1,d=p.R*.6+r()*8,g=LAND_G[Math.floor(r()*LAND_G.length)];
+      h+=`<g class="${isNew?'map-new':''}"><use href="#g-${g}" transform="translate(${(p.px+Math.cos(a)*d).toFixed(1)} ${(p.py+Math.sin(a)*d).toFixed(1)}) scale(1.15)"/></g>`;
+    }
+  });
+  // sea life, kept clear of land and trails
+  const avoid=places.map(p=>[p.px,p.py]).concat(segs.map(s=>q(s,.5)));
+  const sr=rng(21);
+  for(let n=0,placed=0;n<40&&placed<6;n++){
+    const x=40+sr()*520,y=50+sr()*600;
+    if(avoid.some(([ax,ay])=>Math.hypot(ax-x,ay-y)<125)||Math.hypot(x-82,y-712)<95)continue;
+    h+=`<use href="#g-${SEA_G[placed%3]}" transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(1.15)"/>`;placed++;
+  }
+  h+=compass;
+  // pins + labels (tap to open the photo)
+  places.forEach(p=>{
+    const right=p.px<MAP_W/2,n=p.items.length,isNew=p.last===entries[0];
+    const label=(p.name.length>16?p.name.slice(0,15)+'…':p.name).toUpperCase()+(n>1?` ×${n}`:'');
+    h+=`<g class="pin${isNew?' map-new':''}" data-id="${p.last.id}" tabindex="0" role="button" aria-label="${label.replace(/"/g,'')}">${isNew?`<circle class="map-pulse" cx="${p.px.toFixed(1)}" cy="${p.py.toFixed(1)}" r="9" fill="none" stroke="${INK}" stroke-width="2.5"/>`:''}<circle cx="${p.px.toFixed(1)}" cy="${p.py.toFixed(1)}" r="9" fill="#fff" stroke="${INK}" stroke-width="3.2"/><circle cx="${p.px.toFixed(1)}" cy="${p.py.toFixed(1)}" r="3.2" fill="${INK}"/><text x="${(p.px+(right?17:-17)).toFixed(1)}" y="${(p.py+5).toFixed(1)}" text-anchor="${right?'start':'end'}" font-family="Georgia,serif" font-weight="700" font-size="15" letter-spacing="1.3" fill="${INK}" stroke="${LAND}" stroke-width="5" paint-order="stroke" stroke-linejoin="round">${label.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text></g>`;
+  });
+  h+=`<text x="584" y="784" text-anchor="end" font-family="Georgia,serif" font-style="italic" font-size="13" fill="${INK}">sniff walk · ${entries.length} ${entries.length===1?'moment':'moments'}</text>`;
+  svg.innerHTML=h;
+  $('mapCaption').textContent=`${places.length} ${places.length===1?'place':'places'} found by nose · ${entries.length} ${entries.length===1?'moment':'moments'}`;
+}
+
+function downloadMap(){
+  if(!entries.length){toast('Save a moment first — the map grows from your photos');return;}
+  const xml=new XMLSerializer().serializeToString($('worldMap'));
+  const img=new Image();
+  img.onload=()=>{const c=document.createElement('canvas');c.width=1200;c.height=1600;c.getContext('2d').drawImage(img,0,0,1200,1600);
+    c.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='sniff-map.png';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);toast('Map image saved');},'image/png');};
+  img.onerror=()=>toast('Could not export the map image');
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(xml);
+}
+
+(function initMap(){
+  const svg=$('worldMap');
+  const open=t=>{const g=t.closest('.pin');const e=g&&entries.find(x=>x.id===g.dataset.id);if(e)openPreview(e);};
+  svg.addEventListener('click',ev=>open(ev.target));
+  svg.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();open(ev.target);}});
+  $('mapDownload').addEventListener('click',downloadMap);
+  drawMap();
+})();
+
+// ---------- Upload a photo as the lens source ----------
+let photoCanvas=null,photoGeo=null;
+async function readExifGps(file){ // GPS stored inside a JPEG, if any
+  try{
+    const v=new DataView(await file.slice(0,262144).arrayBuffer());
+    if(v.getUint16(0)!==0xFFD8)return null;
+    for(let o=2;o<v.byteLength-4;){
+      const m=v.getUint16(o);
+      if(m===0xFFE1&&v.getUint32(o+4)===0x45786966)return parseTiffGps(v,o+10);
+      if((m&0xFF00)!==0xFF00)break;
+      o+=2+v.getUint16(o+2);
+    }
+  }catch(_){}
+  return null;
+}
+function parseTiffGps(v,t){
+  const le=v.getUint16(t)===0x4949,u16=p=>v.getUint16(p,le),u32=p=>v.getUint32(p,le);
+  const ifd=p=>{const n=u16(p),r={};for(let i=0;i<n;i++){const e=p+2+i*12;r[u16(e)]={off:e+8};}return r;};
+  const i0=ifd(t+u32(t+4));if(!i0[0x8825])return null;
+  const g=ifd(t+u32(i0[0x8825].off));if(!g[2]||!g[4])return null;
+  const rat=e=>{const p=t+u32(e.off),f=k=>u32(p+k*8)/u32(p+k*8+4);return f(0)+f(1)/60+f(2)/3600;};
+  let lat=rat(g[2]),lon=rat(g[4]);
+  if(g[1]&&String.fromCharCode(v.getUint8(g[1].off))==='S')lat=-lat;
+  if(g[3]&&String.fromCharCode(v.getUint8(g[3].off))==='W')lon=-lon;
+  return Number.isFinite(lat)&&Number.isFinite(lon)&&(lat||lon)?{latitude:lat,longitude:lon}:null;
+}
+async function loadPhotoFile(file){
+  if(!file)return;
+  try{
+    if(!file.type.startsWith('image/'))throw new Error('not an image');
+    let bmp;
+    try{bmp=await createImageBitmap(file,{imageOrientation:'from-image'});}
+    catch(_){bmp=await new Promise((ok,no)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{URL.revokeObjectURL(u);ok(im);};im.onerror=()=>no(new Error('decode'));im.src=u;});}
+    const bw=bmp.width,bh=bmp.height,k=Math.max(W/bw,H/bh),sw=W/k,sh=H/k; // centred "cover" crop to the 3:4 lens
+    const pc=document.createElement('canvas');pc.width=W;pc.height=H;
+    pc.getContext('2d').drawImage(bmp,(bw-sw)/2,(bh-sh)/2,sw,sh,0,0,W,H);
+    if(bmp.close)bmp.close();
+    photoGeo=await readExifGps(file);
+    stopCamera();photoCanvas=pc;autoMaskValid=false;
+    $('cameraLabel').textContent='YOUR PHOTO';
+    $('statusText').textContent='Photo loaded · tap your dog to keep that area clear.';
+    toast(photoGeo?'Photo loaded · its location was found':'Photo loaded · no location inside, the map will place it by order');
+  }catch(e){console.warn(e);toast('Could not open that file — try a JPG or PNG photo');}
+}
+(function initUpload(){
+  $('uploadButton').addEventListener('click',()=>$('photoInput').click());
+  $('photoInput').addEventListener('change',e=>{void loadPhotoFile(e.target.files[0]);e.target.value='';});
+})();
+</script>
+</body></html>
